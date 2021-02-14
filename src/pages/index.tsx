@@ -8,19 +8,20 @@ const Home: React.FC = () => {
     <GoogleAnalyticsHook />
     <div className="container">
       <Head>
-        <title>Ajay Liu</title>
+        <title>Inspiration Jar</title>
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="Description"
-          content="My name is Ajay Liu and I love creating
-          things!"
+          content="Share words of encouragement to fellow humans
+          around the world!"
         /> 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:title" content="Ajay Liu" />
+        <meta property="og:title" content="Inspiration Jar" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://ajayliu.com/" />
-        <meta property="og:image" content="https://ajayliu.com/imgs/ajayliudark.png" />
-        <meta property="og:description" content="My name is Ajay Liu and I love creating things!" />
+        <meta property="og:url" content="https://inspirationjar.netlify.app/" />
+        {/* <meta property="og:image" content="https://ajayliu.com/imgs/ajayliudark.png" /> */}
+        <meta property="og:description" content="Share words of encouragement to fellow humans
+          around the world!" />
 
       </Head>
 

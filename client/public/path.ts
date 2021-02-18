@@ -1,0 +1,1 @@
+export const imgPath = "https://ajayliu.com/imgs/";

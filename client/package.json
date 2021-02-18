@@ -6,7 +6,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "export": "yarn build && next export"
+    "export": "npm run build && next export"
   },
   "dependencies": {
     "axios": "^0.21.1",

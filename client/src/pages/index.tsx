@@ -3,6 +3,7 @@ import Footer from '@components/Footer'
 import GoogleAnalyticsHook from '@components/GoogleAnalyticsHook'
 import Browse from '@components/Browse'
 import LoginButton from '@components/LoginButton'
+import LandingPage from '@components/LandingPage'
 
 const Home: React.FC = () => {
   return (
@@ -21,13 +22,14 @@ const Home: React.FC = () => {
         <meta property="og:title" content="Inspiration Jar" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://inspirationjar.herokuapp.com/" />
-        <meta property="og:image" content="https://inspirationjar.herokuapp.com/imgs/logo.png" />
+        <meta property="og:image" content="https://inspirationjar.herokuapp.com/img/logo.png" />
         <meta property="og:description" content="Share words of encouragement to fellow humans around the 
           world!" />
 
       </Head>
 
       <main>
+        <LandingPage />
         <Browse />
         <LoginButton />
       </main>

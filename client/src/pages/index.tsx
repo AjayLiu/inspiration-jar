@@ -22,7 +22,7 @@ const Home: React.FC = () => {
         <meta property="og:title" content="Inspiration Jar" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://inspirationjar.herokuapp.com/" />
-        <meta property="og:image" content="https://inspirationjar.herokuapp.com/img/logo.png" />
+        <meta property="og:image" content="https://inspirationjar.herokuapp.com/img/jar.png" />
         <meta property="og:description" content="Share words of encouragement to fellow humans around the 
           world!" />
 

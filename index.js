@@ -17,7 +17,29 @@ if(process.env.NODE_ENV === 'production') {
 
 
 //middleware
-app.use(cors())
+const allowlist = 
+// []; 
+['inspirationjar.herokuapp.com', 'locahost:3000', 'localhost:5000'];
+
+const corsOptionsDelegate = (req, callback) => {
+    let corsOptions;
+
+    let isDomainAllowed = allowlist.indexOf(req.header('Host')) !== -1;
+    // console.log(req.header('Host'))
+    // console.log(isDomainAllowed)
+
+    if (isDomainAllowed) {
+        // Enable CORS for this request
+        corsOptions = { origin: true }
+    } else {
+        // Disable CORS for this request
+        corsOptions = { origin: false }
+    }
+    callback(null, corsOptions)
+}
+
+app.use(cors(corsOptionsDelegate));
+// app.use(cors())
 app.use(express.json())
 
 

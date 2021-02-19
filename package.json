@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "cd server && node index.js",
+    "start": "cd server && node server.js",
     "heroku-postbuild": "cd client && yarn && yarn export",
     "dev": "concurrently --kill-others \"cd client && yarn dev\" \"cd server && nodemon\""
   },
+  "main":"server/server.js",
   "author": "ajayliu",
   "license": "MIT",
   "devDependencies": {

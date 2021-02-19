@@ -20,8 +20,8 @@ app.use(cors())
 app.use(express.json())
 
 
-app.use(express.static(path.join(__dirname, "client/out")));
-
+// app.use(express.static(path.join(__dirname, "client/out")));
+app.use(express.static("client/out"));
 
 //Routes//
 const routes = require('./routes');

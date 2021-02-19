@@ -14,7 +14,8 @@ app.use(express.static(path.join(__dirname, "client/out")));
 
 
 //Routes//
-app.post("/quotes", async(req, res) => {
+const apiPrefix = '/api'
+app.post(apiPrefix+"/quotes", async(req, res) => {
     try {
         const { quote_content } = req.body;
         const newQuote = await pool.query(
@@ -28,7 +29,7 @@ app.post("/quotes", async(req, res) => {
     }
 })
  
-app.get("/quotes", async(req, res) => {
+app.get(apiPrefix+"/quotes", async(req, res) => {
     try{
         const allQuotes = await pool.query(
             "SELECT * FROM quotes;"
@@ -39,7 +40,7 @@ app.get("/quotes", async(req, res) => {
     }
 })
 
-app.get("/quotes/:id", async (req, res)=> {
+app.get(apiPrefix+"/quotes/:id", async (req, res)=> {
     try{
         const {id} = req.params;
         const quote = await pool.query(
@@ -52,7 +53,7 @@ app.get("/quotes/:id", async (req, res)=> {
     }
 })
 
-app.put("/quotes/:id", async (req, res) => {
+app.put(apiPrefix+"/quotes/:id", async (req, res) => {
     try{
         const {id} = req.params;
         const {quote_content} = req.body;
@@ -66,7 +67,7 @@ app.put("/quotes/:id", async (req, res) => {
     }
 })
 
-app.delete("/quotes/:id", async (req, res) => {
+app.delete(apiPrefix+"/quotes/:id", async (req, res) => {
     try{
         const {id} = req.params;
         const deleteQuote = await pool.query(

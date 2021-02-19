@@ -5,8 +5,41 @@ const pool = require('./db')
 const PORT = process.env.PORT || 5000;
 const path = require("path");
 
+//force https
+if(process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https')
+      res.redirect(`https://${req.header('host')}${req.url}`)
+    else
+      next()
+  })
+}
+
+
 //middleware
-app.use(cors())
+const allowlist = 
+// []; 
+['inspirationjar.herokuapp.com', 'locahost:3000', 'localhost:5000'];
+
+const corsOptionsDelegate = (req, callback) => {
+    let corsOptions;
+
+    let isDomainAllowed = allowlist.indexOf(req.header('Host')) !== -1;
+    // console.log(req.header('Host'))
+    // console.log(isDomainAllowed)
+
+    if (isDomainAllowed) {
+        // Enable CORS for this request
+        corsOptions = { origin: true }
+    } else {
+        // Disable CORS for this request
+        corsOptions = { origin: false }
+    }
+    callback(null, corsOptions)
+}
+
+app.use(cors(corsOptionsDelegate));
+// app.use(cors())
 app.use(express.json())
 
 

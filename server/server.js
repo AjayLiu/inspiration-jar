@@ -21,9 +21,7 @@ app.use(express.json())
 
 
 // app.use(express.static(path.join(__dirname, "client/out")));
-app.use(express.static(path.join(__dirname, "../../client/out")));
-
-// console.log(path.join(__dirname, "../client/out"))
+app.use(express.static(path.join(__dirname, "../client/out")));
 
 //Routes//
 const routes = require('./routes');

@@ -17,27 +17,7 @@ if(process.env.NODE_ENV === 'production') {
 
 
 //middleware
-const allowlist = 
-// []; 
-['inspirationjar.herokuapp.com'];
-
-const corsOptionsDelegate = (req, callback) => {
-    let corsOptions;
-
-    let isDomainAllowed = allowlist.indexOf(req.header('Origin')) !== -1;
-    // console.log(isDomainAllowed);
-    if (isDomainAllowed) {
-        // Enable CORS for this request
-        corsOptions = { origin: true }
-    } else {
-        // Disable CORS for this request
-        corsOptions = { origin: false }
-    }
-    callback(null, corsOptions)
-}
-
-app.use(cors(corsOptionsDelegate));
-// app.use(cors())
+app.use(cors())
 app.use(express.json())
 
 

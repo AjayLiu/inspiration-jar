@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Footer from '@components/Footer'
 import GoogleAnalyticsHook from '@components/GoogleAnalyticsHook'
 import Browse from '@components/Browse'
+import LoginButton from '@components/LoginButton'
 
 const Home: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ const Home: React.FC = () => {
 
       <main>
         <Browse />
+        <LoginButton />
       </main>
 
       <Footer />

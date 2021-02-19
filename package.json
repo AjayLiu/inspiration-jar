@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "install": "(cd client && yarn) && (cd ../server && yarn)",
+    "heroku-postbuild": "yarn build",
+    "build": "cd client && yarn build && yarn export",
     "start": "cd server && node server.js",
-    "heroku-postbuild": "cd client && yarn && yarn export",
+
     "dev": "concurrently --kill-others \"cd client && yarn dev\" \"cd server && nodemon\""
   },
   "main":"server/server.js",
   "author": "ajayliu",
   "license": "MIT",
+  "dependencies": {
+    "concurrently" : "^4.0.1"
+  },
   "devDependencies": {
     "@types/node": "^14.14.28",
     "@types/react": "^17.0.2",

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "install": "(cd client && yarn) && (cd ../server && yarn)",
+    "install": "(cd client && yarn) && (cd server && yarn)",
     "heroku-postbuild": "yarn build",
     "build": "cd client && yarn build && yarn export",
     "start": "cd server && node server.js",

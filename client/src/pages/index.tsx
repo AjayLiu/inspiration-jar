@@ -25,7 +25,6 @@ const Home: React.FC = () => {
         <meta property="og:image" content="https://inspirationjar.herokuapp.com/img/jar.png" />
         <meta property="og:description" content="Share words of encouragement to fellow humans around the 
           world!" />
-
       </Head>
 
       <main>

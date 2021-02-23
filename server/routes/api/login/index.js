@@ -5,16 +5,38 @@ const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 require("dotenv").config()
+const {
+    SESS_NAME,
+    SESS_SECRET,
+} = process.env;
+
+const session = require('express-session')
+login.use(session({
+    name: SESS_NAME,
+    resave: false,
+    saveUninitialized: false,
+    secret: SESS_SECRET,
+    cookie: {
+        httpOnly: true,
+        sameSite: true,
+        secure: process.env.NODE_ENV==="production",
+        maxAge: 1000 * 60 * 60 * 24 * 30 //30 days
+    }
+}))
 
 login.use(passport.initialize())
+login.use(passport.session())
 
-passport.serializeUser((user, done) => {
-    done(null, user.id);
+
+passport.serializeUser((userInfo, done) => {
+    done(null, userInfo);
 })
 
-passport.deserializeUser((user, done) => {
-    done(null, user);
+passport.deserializeUser((obj, done) => {
+    done(null, obj);
 })
+
+let user = {};
 
 passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
@@ -24,7 +46,8 @@ passport.use(new GoogleStrategy({
             "http://localhost:5000/api/login/google/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
-        console.log(profile);
+        // console.log(profile);
+        user = {...profile}
         cb(null, profile)
     }
 ))
@@ -36,12 +59,20 @@ login.get('/google',
 login.get('/google/callback', 
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
-        res.end('Logged in!')
+        // req.session.inspiration_sid = 123;
+        // res.end('Logged in!')
+        res.redirect('/api/login/user')
     }
 );
 
+
+login.get("/user", (req, res) => {
+    console.log("getting user data!");
+    res.send(user);
+});
+
 login.get("/", async(req, res) => {
-    res.json("Hi");
+    // res.json(user);
 })
 
 module.exports = login;

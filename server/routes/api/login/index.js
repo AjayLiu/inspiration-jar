@@ -23,7 +23,7 @@ login.use(
     cookie: {
       httpOnly: true,
       sameSite: true,
-      secure: process.env.NODE_ENV === "production",
+      // secure: process.env.NODE_ENV === "production",
       maxAge: 1000 * 60 * 60 * 24 * 30, //30 days
     },
   })
@@ -66,9 +66,9 @@ login.get(
   passport.authenticate("google", { failureRedirect: "/login" }),
   (req, res) => {
     if (process.env.NODE_ENV === "production") {
-      res.redirect("/api/login");
+      res.redirect("/account.html");
     } else {
-      res.redirect("http://localhost:3000/api/login");
+      res.redirect("/account");
     }
   }
 );
@@ -76,7 +76,7 @@ login.get(
 login.get("/", async (req, res) => {
   try {
     const email = req.session.passport.user;
-    res.json(req.session.passport.user);
+    res.json(email);
   } catch (err) {
     res.json(err);
   }

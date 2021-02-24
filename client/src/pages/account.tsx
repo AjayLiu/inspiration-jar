@@ -7,7 +7,7 @@ const Account: React.FC = () => {
         const getEmail = async () => {
             const response = await fetch('/api/login');
             const data = await response.json();
-            setEmail(data)
+            setEmail(JSON.stringify(data))
         }
         getEmail();
     }, [])

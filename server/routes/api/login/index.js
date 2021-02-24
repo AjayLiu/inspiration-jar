@@ -1,33 +1,7 @@
 const login = require("express").Router();
-const pgPool = require("../../../db");
 
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-
-require("dotenv").config();
-const { SESS_NAME, SESS_SECRET } = process.env;
-
-const session = require("express-session");
-const pgSession = require("connect-pg-simple")(session);
-
-login.use(
-  session({
-    store: new pgSession({
-      pool: pgPool,
-      tableName: "session",
-    }),
-    name: SESS_NAME,
-    resave: false,
-    saveUninitialized: false,
-    secret: SESS_SECRET,
-    cookie: {
-      httpOnly: true,
-      sameSite: true,
-      // secure: process.env.NODE_ENV === "production",
-      maxAge: 1000 * 60 * 60 * 24 * 30, //30 days
-    },
-  })
-);
 
 login.use(passport.initialize());
 

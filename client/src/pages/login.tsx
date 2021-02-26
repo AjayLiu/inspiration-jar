@@ -1,7 +1,15 @@
+import Footer from '@components/Footer'
+import LoginButton from "@components/LoginButton"
+import Navbar from "@components/Navbar";
+
 const Login: React.FC = () => {
     return (
         <div>
-            <a href="/api/login/google">Login with Google</a>
+            <main>
+                <Navbar />
+                <LoginButton />
+            </main>
+            <Footer />
         </div>
     )
 }

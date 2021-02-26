@@ -3,10 +3,13 @@ const login = require("express").Router();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
+const cookieParser = require("cookie-parser");
+login.use(cookieParser());
+
 login.use(passport.initialize());
 
 passport.serializeUser((userInfo, done) => {
-  console.log(userInfo._json.email);
+  // console.log(userInfo._json.email);
   done(null, userInfo._json.email);
 });
 
@@ -47,11 +50,27 @@ login.get(
   }
 );
 
+login.get("/logout", async (req, res) => {
+  try {
+    req.logout();
+    res.redirect("/account");
+    // res.json("successfully logged out");
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 login.get("/", async (req, res) => {
   try {
     const email = req.session.passport.user;
-    res.json(email);
+    if (email == undefined) {
+      res.status(400);
+      res.json("login no longer valid");
+    } else {
+      res.json(email);
+    }
   } catch (err) {
+    res.status(400);
     res.json(err);
   }
 });

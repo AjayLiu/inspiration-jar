@@ -1,0 +1,15 @@
+.container {
+  background-color: #405970;
+}
+
+.listContainer {
+  width: 80%;
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+
+  padding: 10px;
+}

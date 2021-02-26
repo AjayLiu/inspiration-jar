@@ -9,6 +9,7 @@ const sessionConfig = session({
   store: new pgSession({
     pool: pgPool,
     tableName: "session",
+    pruneSessionInterval: 0,
   }),
   name: SESS_NAME,
   resave: false,

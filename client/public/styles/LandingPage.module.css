@@ -1,4 +1,17 @@
-.logo{
-    width: 80%;
-    max-width: 300px;
+.fullscreenContainer {
+  height: 90vh;
+}
+
+.logo {
+  width: 80%;
+  max-width: 150px;
+}
+
+.logoTitle {
+  margin: 0;
+}
+
+.logoSlogan {
+  margin: 0;
+  font-size: large;
 }

@@ -1,6 +1,7 @@
 import Footer from '@components/Footer';
 import Navbar from '@components/Navbar';
 import {useState, useEffect} from 'react'
+import Head from 'next/head'
 
 const Account: React.FC = () => {
     const [email, setEmail] = useState('loading...');
@@ -21,6 +22,9 @@ const Account: React.FC = () => {
 
     return (
         <div>
+            <Head>
+                <title>My Account | Inspiration Jar</title>
+            </Head>
             <main>
                 <Navbar />
                 <div>

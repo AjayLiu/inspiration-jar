@@ -1,17 +1,8 @@
-import {useEffect, useState} from 'react'
+import useGetAllQuotes from '@hooks/useGetAllQuotes'
 
 const Browse: React.FC = () => {
     
-    const [quotesList, setQuotesList] = useState([]);
-
-    useEffect( () => {
-        const getAllQuotes = async () => {
-            const response = await fetch('/api/quotes');
-            const data = await response.json();
-            setQuotesList(data)
-        }
-        getAllQuotes();
-    }, [])
+    const quotesList = useGetAllQuotes();
 
     return (
         <div>

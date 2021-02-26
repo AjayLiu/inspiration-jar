@@ -22,7 +22,8 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@styles/*": ["public/styles/*"],
-      "@imgs/*": ["https://localhost:3000/public/imgs/*"]
+      "@hooks/*": ["src/hooks/*"],
+      "@imgs/*": ["https://localhost:3000/public/imgs/*"],
     }
   },
   "include": [

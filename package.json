@@ -6,10 +6,10 @@
     "install": "(cd client && yarn) && (cd server && yarn)",
     "heroku-postbuild": "yarn build",
     "build": "cd client && yarn build && yarn export",
-    "start": "cd server && node server.js",
-    "dev": "concurrently --kill-others \"cd client && yarn dev\" \"cd server && nodemon\""
+    "start": "cd server && yarn start",
+    "dev": "concurrently --kill-others \"cd client && yarn dev\" \"cd server && yarn dev\""
   },
-  "main": "server/server.js",
+  "main": "server/server.ts",
   "author": "ajayliu",
   "license": "MIT",
   "dependencies": {

@@ -87,4 +87,5 @@ login.get("/", async (req, res) => {
   }
 });
 
-module.exports = login;
+// module.exports = login;
+export = login;

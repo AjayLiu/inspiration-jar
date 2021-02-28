@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react'
 import Head from 'next/head'
 import styles from '@styles/Account.module.css'
 import YourQuotes from '@components/account/YourQuotes';
+import Submit from '@components/Submit';
 
 const Account: React.FC = () => {
     const [email, setEmail] = useState('loading...');
@@ -47,6 +48,7 @@ const Account: React.FC = () => {
                     :
                     "Loading..."
                 }
+                <Submit />
             </main>
             <Footer />
         </div>

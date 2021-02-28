@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import  { Quote } from '@hooks/useFetchQuotes'
 import QuoteCard from '@components/QuoteCard';
-import styles from '@styles/SingleDraw.module.css'
+import styles from '@styles/home/SingleDraw.module.css'
 
 interface Props{
     quotesList: Array<Quote>;

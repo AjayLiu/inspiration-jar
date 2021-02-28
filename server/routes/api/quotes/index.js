@@ -3,7 +3,6 @@ const pool = require("../../../db");
 
 const loggedIn = (req, res, next) => {
   try {
-    console.log(req.session.passport);
     const email = req.session.passport.user;
     if (email != undefined) {
       next();
@@ -13,12 +12,18 @@ const loggedIn = (req, res, next) => {
   }
 };
 
-quotes.post("/", async (req, res) => {
+quotes.post("/", loggedIn, async (req, res) => {
   try {
-    const { quote_content } = req.body;
+    const { quote_content, author } = req.body;
+
+    //verify sender is from logged in email
+    if (author != req.session.passport.user) {
+      res.status(403);
+    }
+
     const newQuote = await pool.query(
-      "INSERT INTO quotes (quote_content) VALUES ($1) RETURNING *;",
-      [quote_content]
+      "INSERT INTO quotes (quote_content, author) VALUES ($1, $2) RETURNING *;",
+      [quote_content, author]
     );
 
     res.json(newQuote.rows[0]);
@@ -36,7 +41,7 @@ quotes.get("/", async (req, res) => {
   }
 });
 
-quotes.get("/:id", loggedIn, async (req, res) => {
+quotes.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const quote = await pool.query("SELECT * FROM quotes WHERE quote_id = $1", [
@@ -48,30 +53,45 @@ quotes.get("/:id", loggedIn, async (req, res) => {
   }
 });
 
-quotes.put("/:id", loggedIn, async (req, res) => {
+quotes.get("/from/:id", loggedIn, async (req, res) => {
   try {
     const { id } = req.params;
-    const { quote_content } = req.body;
-    const updateQuote = await pool.query(
-      "UPDATE quotes SET quote_content = $1 WHERE quote_id = $2;",
-      [quote_content, id]
+    const email = req.session.passport.user;
+    const userQuotes = await pool.query(
+      "SELECT * FROM quotes WHERE author = $1",
+      [email]
     );
-    res.json(`Quote ${id} was changed to: ${quote_content}`);
+    res.json(userQuotes.rows);
   } catch (err) {
-    console.error(err.message);
+    console.error(err);
   }
 });
 
-quotes.delete("/:id", loggedIn, async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deleteQuote = await pool.query(
-      "DELETE FROM quotes WHERE quote_id = $1;",
-      [id]
-    );
-    res.json("quote deleted!");
-  } catch (err) {
-    console.error(err.message);
-  }
-});
+// quotes.put("/:id", loggedIn, async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { quote_content } = req.body;
+//     const updateQuote = await pool.query(
+//       "UPDATE quotes SET quote_content = $1 WHERE quote_id = $2;",
+//       [quote_content, id]
+//     );
+//     res.json(`Quote ${id} was changed to: ${quote_content}`);
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// });
+
+// quotes.delete("/:id", loggedIn, async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const deleteQuote = await pool.query(
+//       "DELETE FROM quotes WHERE quote_id = $1;",
+//       [id]
+//     );
+//     res.json("quote deleted!");
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// });
+
 module.exports = quotes;

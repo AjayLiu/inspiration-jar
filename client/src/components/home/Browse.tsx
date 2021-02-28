@@ -1,5 +1,5 @@
-import { Quote } from '@hooks/useGetAllQuotes'
-import QuoteCard from './QuoteCard';
+import { Quote } from '@hooks/useFetchQuotes'
+import QuoteCard from '@components/QuoteCard';
 
 interface Props{
     quotesList: Array<Quote>

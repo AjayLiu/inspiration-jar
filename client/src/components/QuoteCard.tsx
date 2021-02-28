@@ -1,4 +1,4 @@
-import { Quote } from "@hooks/useGetAllQuotes";
+import { Quote } from "@hooks/useFetchQuotes";
 import styles from "@styles/QuoteCard.module.css"
 import { useEffect, useState } from "react";
 
@@ -16,7 +16,7 @@ const QuoteCard: React.FC<Props> = props => {
     }, [props.quote])
     return (
         <div>
-            <div className={styles.stickynoteContainer}>
+            <div className={styles.stickynoteContainer} >
                 {quoteText}
             </div>
         </div>

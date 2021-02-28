@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import  { Quote } from '@hooks/useGetAllQuotes'
+import  { Quote } from '@hooks/useFetchQuotes'
 import QuoteCard from '@components/QuoteCard';
 import styles from '@styles/SingleDraw.module.css'
 
@@ -20,7 +20,7 @@ const SingleDraw: React.FC<Props> = props => {
     }
 
     return (
-        <div className={styles.container} onClick={()=>onQuoteClick()}>
+        <div className={styles.container} onClick={()=>onQuoteClick()} style={{cursor: "pointer"}}>
             <QuoteCard quote={quote}/>
         </div>
     )

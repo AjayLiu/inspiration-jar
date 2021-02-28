@@ -1,4 +1,5 @@
 const login = require("express").Router();
+const pool = require("../../../db");
 
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
@@ -41,11 +42,22 @@ login.get(
 login.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
-  (req, res) => {
+  async (req, res) => {
+    //add account to accounts table
+    try {
+      const email = req.session.passport.user;
+      await pool.query(
+        "INSERT INTO accounts (email) VALUES ($1) ON CONFLICT (email) DO NOTHING;",
+        [email]
+      );
+    } catch (err) {
+      console.error(err);
+    }
+
     if (process.env.NODE_ENV === "production") {
       res.redirect("/account.html");
     } else {
-      res.redirect("/account");
+      res.redirect("http://localhost:3000/account");
     }
   }
 );

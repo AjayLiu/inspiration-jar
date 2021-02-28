@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import Footer from '@components/Footer'
 import GoogleAnalyticsHook from '@components/GoogleAnalyticsHook'
-import LandingPage from '@components/LandingPage'
+import LandingPage from '@components/home/LandingPage'
 import Navbar from '@components/Navbar'
-import DrawAndBrowse from '@components/DrawAndBrowse'
+import DrawAndBrowse from '@components/home/DrawAndBrowse'
 
 const Home: React.FC = () => {
   return (

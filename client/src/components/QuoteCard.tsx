@@ -1,4 +1,4 @@
-import { Quote } from "@hooks/useGetAllQuotes";
+import { Quote } from "@hooks/useFetchQuotes";
 import styles from "@styles/QuoteCard.module.css"
 import { useEffect, useState } from "react";
 

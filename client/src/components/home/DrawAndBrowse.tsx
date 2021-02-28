@@ -1,10 +1,10 @@
-import Browse from "./Browse";
-import SingleDraw from "./SingleDraw"
-import useGetAllQuotes from '@hooks/useGetAllQuotes'
+import Browse from "@components/home/Browse";
+import SingleDraw from "@components/home/SingleDraw"
+import useFetchQuotes from "@hooks/useFetchQuotes";
 
 
 const DrawAndBrowse: React.FC = () => {
-    const allQuotes = useGetAllQuotes();
+    const allQuotes = useFetchQuotes('');
 
     return (
         <div>

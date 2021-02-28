@@ -3,6 +3,7 @@ import Navbar from '@components/Navbar';
 import {useState, useEffect} from 'react'
 import Head from 'next/head'
 import styles from '@styles/Account.module.css'
+import YourQuotes from '@components/account/YourQuotes';
 
 const Account: React.FC = () => {
     const [email, setEmail] = useState('loading...');
@@ -14,7 +15,7 @@ const Account: React.FC = () => {
             if(response.status!=200){
                 window.location.href="/login";
             } else {
-                setEmail(JSON.stringify(data))
+                setEmail(data)
                 setIsLoggedIn(true);
             }
         }
@@ -41,6 +42,7 @@ const Account: React.FC = () => {
                                 Logout
                             </div>
                         </a>
+                        <YourQuotes email={email}/>
                     </>
                     :
                     "Loading..."

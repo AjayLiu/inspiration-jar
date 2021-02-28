@@ -1,5 +1,5 @@
 import Footer from '@components/Footer'
-import LoginButton from "@components/LoginButton"
+import LoginButton from "@components/login/LoginButton"
 import Navbar from "@components/Navbar"
 import Head from 'next/head'
 

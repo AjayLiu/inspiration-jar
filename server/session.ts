@@ -23,4 +23,5 @@ const sessionConfig = session({
   },
 });
 
-module.exports = sessionConfig;
+// module.exports = sessionConfig;
+export = sessionConfig;

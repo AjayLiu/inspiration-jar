@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 //session
-const sessionConfig = require("./session");
+const sessionConfig = require("./session")
 app.use(sessionConfig);
 
 // app.use(express.static(path.join(__dirname, "client/out")));

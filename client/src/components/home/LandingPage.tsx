@@ -1,4 +1,4 @@
-import styles from '@styles/LandingPage.module.css'
+import styles from '@styles/home/LandingPage.module.css'
 const LandingPage: React.FC = () => {
     return (
         <div >

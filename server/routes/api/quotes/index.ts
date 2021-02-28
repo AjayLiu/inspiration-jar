@@ -1,6 +1,9 @@
 const quotes = require("express").Router();
 const pool = require("../../../db");
 
+const bodyParser = require("body-parser");
+quotes.use(bodyParser.urlencoded({ extended: true }));
+
 const loggedIn = (req, res, next) => {
   try {
     const email = req.session.passport.user;
@@ -14,18 +17,13 @@ const loggedIn = (req, res, next) => {
 
 quotes.post("/", loggedIn, async (req, res) => {
   try {
-    const { quote_content, author } = req.body;
-
-    //verify sender is from logged in email
-    if (author != req.session.passport.user) {
-      res.status(403);
-    }
+    const { quote } = req.body;
+    const author = req.session.passport.user;
 
     const newQuote = await pool.query(
-      "INSERT INTO quotes (quote_content, author) VALUES ($1, $2) RETURNING *;",
-      [quote_content, author]
+      "INSERT INTO quotes (quote_content, author, time) VALUES ($1, $2, NOW()) RETURNING *;",
+      [quote, author]
     );
-
     res.json(newQuote.rows[0]);
   } catch (err) {
     console.error(err.message);

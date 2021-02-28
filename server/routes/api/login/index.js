@@ -45,7 +45,7 @@ login.get(
     if (process.env.NODE_ENV === "production") {
       res.redirect("/account.html");
     } else {
-      res.redirect("/account");
+      res.redirect("http://localhost:3000/account");
     }
   }
 );

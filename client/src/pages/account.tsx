@@ -2,19 +2,20 @@ import Footer from '@components/Footer';
 import Navbar from '@components/Navbar';
 import {useState, useEffect} from 'react'
 import Head from 'next/head'
+import styles from '@styles/Account.module.css'
 
 const Account: React.FC = () => {
     const [email, setEmail] = useState('loading...');
-
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     useEffect( () => {
         const getEmail = async () => {
             const response = await fetch('/api/login');
             const data = await response.json();
-            console.log(response.status)
             if(response.status!=200){
                 window.location.href="/login";
             } else {
                 setEmail(JSON.stringify(data))
+                setIsLoggedIn(true);
             }
         }
         getEmail();
@@ -27,12 +28,23 @@ const Account: React.FC = () => {
             </Head>
             <main>
                 <Navbar />
-                <div>
-                    Currently logged in as {email}
-                </div>
-                <a href="/api/login/logout">
-                    Logout
-                </a>
+                <h1>My Account</h1>
+                {
+                    isLoggedIn ?
+                    <>
+                        <div>
+                            Currently logged in as {email}
+                        </div>
+                        <a className={styles.logoutContainer} href="/api/login/logout">
+                            <img className={styles.logoutImg} src="img/logout.svg"></img>
+                            <div className={styles.logoutText} >
+                                Logout
+                            </div>
+                        </a>
+                    </>
+                    :
+                    "Loading..."
+                }
             </main>
             <Footer />
         </div>

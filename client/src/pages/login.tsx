@@ -11,6 +11,7 @@ const Login: React.FC = () => {
             </Head>
             <main>
                 <Navbar />
+                <h1>Login</h1>
                 <LoginButton />
             </main>
             <Footer />

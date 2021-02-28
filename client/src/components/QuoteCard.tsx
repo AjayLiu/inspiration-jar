@@ -16,7 +16,7 @@ const QuoteCard: React.FC<Props> = props => {
     }, [props.quote])
     return (
         <div>
-            <div className={styles.stickynoteContainer}>
+            <div className={styles.stickynoteContainer} >
                 {quoteText}
             </div>
         </div>

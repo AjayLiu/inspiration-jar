@@ -20,7 +20,7 @@ const SingleDraw: React.FC<Props> = props => {
     }
 
     return (
-        <div className={styles.container} onClick={()=>onQuoteClick()}>
+        <div className={styles.container} onClick={()=>onQuoteClick()} style={{cursor: "pointer"}}>
             <QuoteCard quote={quote}/>
         </div>
     )

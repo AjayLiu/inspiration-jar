@@ -1,13 +1,19 @@
-import useGetAllQuotes from '@hooks/useGetAllQuotes'
+import { Quote } from '@hooks/useGetAllQuotes'
+import QuoteCard from './QuoteCard';
 
-const Browse: React.FC = () => {
+interface Props{
+    quotesList: Array<Quote>
+}
+
+const Browse: React.FC<Props> = props => {
     
-    const quotesList = useGetAllQuotes();
+    const quotesList = props.quotesList;
 
     return (
         <div>
+            <h2>Browse</h2>
             {quotesList.map((item, idx)=>{
-                return <div key={idx}>{item.quote_content}</div>
+                return <QuoteCard quote={item} key={idx}/>
             })}
         </div>
     )

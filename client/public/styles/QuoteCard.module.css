@@ -1,0 +1,15 @@
+.stickynoteContainer {
+  background-color: rgb(230, 230, 136);
+  color: black;
+  width: 90%;
+  max-width: 800px;
+  height: 50vh;
+  max-height: 300px;
+  margin: 20px auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}

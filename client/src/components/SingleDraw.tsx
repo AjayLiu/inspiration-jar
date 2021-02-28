@@ -1,25 +1,27 @@
 import {useEffect, useState} from 'react'
-import useGetAllQuotes from '@hooks/useGetAllQuotes'
-import styles from "@styles/SingleDraw.module.css"
+import  { Quote } from '@hooks/useGetAllQuotes'
+import QuoteCard from '@components/QuoteCard';
+import styles from '@styles/SingleDraw.module.css'
 
-const SingleDraw: React.FC = () => {
-    const quotesList = useGetAllQuotes();
-    
-    const [quotesContentList, setQuotesContentList] = useState(['Loading...']);
+interface Props{
+    quotesList: Array<Quote>;
+}
 
-    useEffect(()=>{
-        let arr = [];
-        quotesList.forEach((obj)=>{
-            arr.push(obj.quote_content);
-        })
-        setQuotesContentList(arr)
-    }, [quotesList])
+const SingleDraw: React.FC<Props> = props => {
+    const quotesList = props.quotesList;
+    const [quoteIndex, setQuoteIndex] = useState(0);
+    const [quote, setQuote] = useState<Quote>();
+    useEffect(() => {
+        setQuote(quotesList[quoteIndex])
+    }, [quotesList, quoteIndex]); 
+
+    const onQuoteClick = () => {
+        setQuoteIndex(quoteIndex+1);
+    }
 
     return (
-        <div>
-            <div className={styles.stickynoteContainer}>
-                {quotesContentList[0]}
-            </div>
+        <div className={styles.container} onClick={()=>onQuoteClick()}>
+            <QuoteCard quote={quote}/>
         </div>
     )
 }

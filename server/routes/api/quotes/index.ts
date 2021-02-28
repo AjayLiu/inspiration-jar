@@ -3,6 +3,7 @@ const pool = require("../../../db");
 
 const bodyParser = require("body-parser");
 quotes.use(bodyParser.urlencoded({ extended: true }));
+quotes.use(bodyParser.json());
 
 const loggedIn = (req, res, next) => {
   try {
@@ -18,6 +19,11 @@ const loggedIn = (req, res, next) => {
 quotes.post("/", loggedIn, async (req, res) => {
   try {
     const { quote } = req.body;
+    if(!quote){
+      res.status(400);
+      return;
+    }
+
     const author = req.session.passport.user;
 
     const newQuote = await pool.query(

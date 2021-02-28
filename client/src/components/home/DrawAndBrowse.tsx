@@ -4,7 +4,7 @@ import useFetchQuotes from "@hooks/useFetchQuotes";
 
 
 const DrawAndBrowse: React.FC = () => {
-    const allQuotes = useFetchQuotes('');
+    const allQuotes = useFetchQuotes('', "GET");
 
     return (
         <div>

@@ -1,0 +1,27 @@
+.divider {
+  width: 80%;
+  max-width: 1000px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+  align-items: center;
+}
+
+.formLabel {
+  margin-bottom: 10px;
+}
+.formText {
+  width: 50%;
+  height: 50px;
+  vertical-align: top;
+  line-height: 25px;
+  margin-bottom: 5px;
+}
+.formSubmit {
+  width: 100px;
+  margin-bottom: 100px;
+}

@@ -8,7 +8,7 @@ interface Props{
 
 const YourQuotes: React.FC<Props> = props => {
     const [gotQuotes, setGotQuotes] = useState(false);
-    const userQuotes = useFetchQuotes(`from/${props.email}`)
+    const userQuotes = useFetchQuotes(`from/${props.email}`, "GET")
     const [quotesList, setQuotesList] = useState<Array<Quote>>();
     useEffect(() => {
         if(userQuotes){
@@ -21,8 +21,8 @@ const YourQuotes: React.FC<Props> = props => {
             <h2>Your Quotes: {gotQuotes?quotesList.length: 0}</h2>
             {
                 gotQuotes && 
-                quotesList.map((q)=>{
-                    return <QuoteCard quote={q}/>;
+                quotesList.map((q, idx)=>{
+                    return <QuoteCard quote={q} key={idx} />;
                 })
             }
         </div>

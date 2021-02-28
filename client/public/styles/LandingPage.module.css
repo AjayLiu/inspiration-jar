@@ -1,8 +1,5 @@
-.fullscreenContainer {
-  height: 90vh;
-}
-
 .logo {
+  margin-top: 20px;
   width: 80%;
   max-width: 150px;
 }
@@ -12,6 +9,8 @@
 }
 
 .logoSlogan {
-  margin: 0;
-  font-size: large;
+  margin: 0 auto;
+  width: 90%;
+  font-size: medium;
+  font-weight: normal;
 }

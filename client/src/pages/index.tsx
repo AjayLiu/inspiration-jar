@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import Footer from '@components/Footer'
 import GoogleAnalyticsHook from '@components/GoogleAnalyticsHook'
-import Browse from '@components/Browse'
 import LandingPage from '@components/LandingPage'
 import Navbar from '@components/Navbar'
+import DrawAndBrowse from '@components/DrawAndBrowse'
 
 const Home: React.FC = () => {
   return (
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
       <main>
         <Navbar />
         <LandingPage />
-        <Browse />
+        <DrawAndBrowse />
       </main>
 
       <Footer />

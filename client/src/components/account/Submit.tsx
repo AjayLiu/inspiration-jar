@@ -9,7 +9,7 @@ const Submit: React.FC = () => {
 
     useFetchQuotes('', "POST", {"quote": userQuote}, executeSubmitHook); //only posts after executeSubmitHook turns to true
 
-    const onQuoteChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+    const onQuoteChange = (event : React.ChangeEvent<HTMLTextAreaElement>) => {
         setUserQuote(event.target.value)
     }
 

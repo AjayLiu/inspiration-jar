@@ -1,5 +1,7 @@
 import QuoteCard from '@components/QuoteCard';
-import useFetchQuotes, { Quote } from '@hooks/useFetchQuotes';
+import useGetQuotes from '@hooks/useGetQuotes';
+import {Quote} from '@hooks/quoteTypes';
+
 import {useEffect, useState } from 'react'
 
 interface Props{
@@ -8,7 +10,7 @@ interface Props{
 
 const YourQuotes: React.FC<Props> = props => {
     const [gotQuotes, setGotQuotes] = useState(false);
-    const userQuotes = useFetchQuotes('/from', "GET")
+    const userQuotes = useGetQuotes('/from')
     const [quotesList, setQuotesList] = useState<Array<Quote>>();
     useEffect(() => {
         if(userQuotes){

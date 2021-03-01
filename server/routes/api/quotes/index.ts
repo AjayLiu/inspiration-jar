@@ -28,15 +28,15 @@ quotes.post("/", loggedIn, async (req, res) => {
     const author = req.session.passport.user;
 
     const newQuote = await pool.query(
-      "INSERT INTO quotes (quote_content, author, time) VALUES ($1, $2, NOW()) RETURNING *;",
+      "INSERT INTO quotes (quote_content, author, time) VALUES ($1, $2, NOW());",
       [quote, author]
     );
 
     //send notification to discord
     nodeFetch(process.env.DISCORD_WEBHOOK_URL, {
         method: 'post',
-        body:    JSON.stringify({
-          "content":"new message!"
+        body: JSON.stringify({
+          "content":`new message: "${quote}" from ${author}`
         }),
         headers: { 'Content-Type': 'application/json' },
     })
@@ -44,7 +44,7 @@ quotes.post("/", loggedIn, async (req, res) => {
     // .then(json => console.log(json));
 
 
-    res.json(newQuote.rows[0]);
+    res.json({"submissionStatus" : "Success!"});
   } catch (err) {
     console.error(err.message);
   }

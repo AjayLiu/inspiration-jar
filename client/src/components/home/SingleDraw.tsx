@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import  { Quote } from '@hooks/useFetchQuotes'
+import  { Quote } from '@hooks/quoteTypes'
 import QuoteCard from '@components/QuoteCard';
 import styles from '@styles/home/SingleDraw.module.css'
 

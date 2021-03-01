@@ -16,6 +16,8 @@ const loggedIn = (req, res, next) => {
   }
 };
 
+const nodeFetch = require('node-fetch');
+
 quotes.post("/", loggedIn, async (req, res) => {
   try {
     const { quote } = req.body;
@@ -23,13 +25,25 @@ quotes.post("/", loggedIn, async (req, res) => {
       res.status(400);
       return;
     }
-
     const author = req.session.passport.user;
 
     const newQuote = await pool.query(
       "INSERT INTO quotes (quote_content, author, time) VALUES ($1, $2, NOW()) RETURNING *;",
       [quote, author]
     );
+
+    //send notification to discord
+    nodeFetch(process.env.DISCORD_WEBHOOK_URL, {
+        method: 'post',
+        body:    JSON.stringify({
+          "content":"new message!"
+        }),
+        headers: { 'Content-Type': 'application/json' },
+    })
+    // .then(res => res.json())
+    // .then(json => console.log(json));
+
+
     res.json(newQuote.rows[0]);
   } catch (err) {
     console.error(err.message);
@@ -38,36 +52,37 @@ quotes.post("/", loggedIn, async (req, res) => {
 
 quotes.get("/", async (req, res) => {
   try {
-    const allQuotes = await pool.query("SELECT * FROM quotes;");
+    const allQuotes = await pool.query("SELECT * FROM quotes WHERE approved = TRUE;");
     res.json(allQuotes.rows);
   } catch (err) {
     console.error(err.message);
   }
 });
 
+
+quotes.get("/from", loggedIn, async (req, res) => {
+  try {  
+    const email = req.session.passport.user; 
+    const userQuotes = await pool.query( 
+      "SELECT * FROM quotes WHERE author = $1;", 
+      [email]  
+    ); 
+    res.json(userQuotes.rows); 
+  } catch (err) {  
+    console.error(err);  
+  }  
+});
+
 quotes.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const quote = await pool.query("SELECT * FROM quotes WHERE quote_id = $1", [
-      id,
-    ]);
+    const quote = await pool.query(
+      "SELECT * FROM quotes WHERE quote_id = $1 AND approved = TRUE;", 
+      [id]
+    );
     res.json(quote.rows[0]);
   } catch (err) {
-    console.error(err.message);
-  }
-});
-
-quotes.get("/from/:id", loggedIn, async (req, res) => {
-  try {
-    const { id } = req.params;
-    const email = req.session.passport.user;
-    const userQuotes = await pool.query(
-      "SELECT * FROM quotes WHERE author = $1",
-      [email]
-    );
-    res.json(userQuotes.rows);
-  } catch (err) {
-    console.error(err);
+     console.error(err.message);
   }
 });
 

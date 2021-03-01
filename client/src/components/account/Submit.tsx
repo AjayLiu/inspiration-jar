@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState} from 'react';
 import useFetchQuotes from '@hooks/useFetchQuotes'
 
 import styles from "@styles/Submit.module.css"

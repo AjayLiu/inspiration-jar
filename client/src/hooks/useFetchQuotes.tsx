@@ -11,7 +11,7 @@ const useFetchQuotes = (path : string, method : string, body? : Object, execute=
         if(execute){
             if(method == "GET"){
                 const getQuotes = async () => {
-                    const response = await fetch(`/api/quotes/${path}`, {method: "GET"});
+                    const response = await fetch(`/api/quotes${path}`, {method: "GET"});
                     const data = await response.json();
                     const quotes : Array<Quote> = data.map(obj=>{
                         return {quoteContent: obj.quote_content};
@@ -22,7 +22,7 @@ const useFetchQuotes = (path : string, method : string, body? : Object, execute=
             }
             if(method=="POST"){
                 const postQuotes = async () => {
-                    const response = await fetch(`/api/quotes/${path}`, 
+                    const response = await fetch(`/api/quotes${path}`, 
                     {
                         method: "POST", 
                         body: JSON.stringify(body), 

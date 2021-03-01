@@ -8,7 +8,7 @@ interface Props{
 
 const YourQuotes: React.FC<Props> = props => {
     const [gotQuotes, setGotQuotes] = useState(false);
-    const userQuotes = useFetchQuotes(`from/${props.email}`, "GET")
+    const userQuotes = useFetchQuotes('/from', "GET")
     const [quotesList, setQuotesList] = useState<Array<Quote>>();
     useEffect(() => {
         if(userQuotes){

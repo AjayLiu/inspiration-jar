@@ -3,9 +3,9 @@ import {useEffect, useState} from 'react'
 import {Quote} from '@hooks/quoteTypes'
 
 const usePostQuotes = (path : string, body? : Object, execute=true) => {
-    const [quoteConfirmation, setQuoteConfirmation] = useState("Sending...");
+    const [quoteConfirmation, setQuoteConfirmation] = useState("Waiting");
     useEffect( () => {
-        if(execute){
+        if(execute){            
             const postQuotes = async () => {
                 const response = await fetch(`/api/quotes${path}`, 
                 {
@@ -17,6 +17,8 @@ const usePostQuotes = (path : string, body? : Object, execute=true) => {
                 setQuoteConfirmation(data.submissionStatus);
             }
             postQuotes();
+        } else {
+            setQuoteConfirmation("Waiting")
         }
     }, [execute])
     return quoteConfirmation;

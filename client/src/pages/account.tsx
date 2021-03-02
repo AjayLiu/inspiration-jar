@@ -34,7 +34,7 @@ const Account: React.FC = () => {
                 {
                     isLoggedIn ?
                     <>
-                        <div>
+                        <div className={styles.loggedInText}>
                             Currently logged in as {email}
                         </div>
                         <a className={styles.logoutContainer} href="/api/login/logout">
@@ -43,12 +43,12 @@ const Account: React.FC = () => {
                                 Logout
                             </div>
                         </a>
+                        <Submit />
                         <YourQuotes email={email}/>
                     </>
                     :
                     "Loading..."
                 }
-                <Submit />
             </main>
             <Footer />
         </div>

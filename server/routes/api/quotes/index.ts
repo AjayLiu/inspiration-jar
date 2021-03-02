@@ -44,7 +44,7 @@ quotes.post("/", loggedIn, async (req, res) => {
     // .then(json => console.log(json));
 
 
-    res.json({"submissionStatus" : "Success!"});
+    res.json({"submissionStatus" : "Success"});
   } catch (err) {
     console.error(err.message);
   }

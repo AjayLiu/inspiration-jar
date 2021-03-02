@@ -9,6 +9,7 @@
   width: 90%;
   margin: auto;
   align-items: center;
+  margin-bottom: 40px;
 }
 
 .formLabel {
@@ -23,5 +24,4 @@
 }
 .formSubmit {
   width: 100px;
-  margin-bottom: 100px;
 }

@@ -18,6 +18,8 @@ const loggedIn = (req, res, next) => {
 
 const nodeFetch = require('node-fetch');
 
+const dayjs = require('dayjs')
+
 quotes.post("/", loggedIn, async (req, res) => {
   try {
     const { quote } = req.body;
@@ -26,6 +28,24 @@ quotes.post("/", loggedIn, async (req, res) => {
       return;
     }
     const author = req.session.passport.user;
+    
+    //prevent spamming (wait a few seconds)
+    const latestQuote = await pool.query(
+      "SELECT time, quote_id FROM quotes WHERE author = $1 ORDER BY time DESC LIMIT 1;",
+      [author]
+    );
+    if(latestQuote.rows.length > 0){
+      const latestTime = latestQuote.rows[0];
+      const secondsPassed = dayjs().diff(dayjs(latestTime.time), "seconds");
+      const WAIT_TIME = 15;
+      if(secondsPassed < WAIT_TIME) {
+        res.json({
+          "submissionStatus":"Too Fast",
+          "waitSeconds":WAIT_TIME - secondsPassed,
+        })
+        return;
+      }
+    }
 
     const newQuote = await pool.query(
       "INSERT INTO quotes (quote_content, author, time) VALUES ($1, $2, NOW());",
@@ -46,7 +66,11 @@ quotes.post("/", loggedIn, async (req, res) => {
 
     res.json({"submissionStatus" : "Success"});
   } catch (err) {
-    console.error(err.message);
+    // duplicate quote
+    if(err.code === '23505'){
+      res.json({"submissionStatus":"Duplicate"});
+    }
+    console.error(err);
   }
 });
 

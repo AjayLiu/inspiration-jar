@@ -1,9 +1,9 @@
 
 import {useEffect, useState} from 'react'
-import {Quote} from '@hooks/quoteTypes'
+import {QuoteSubmission} from '@hooks/quoteTypes'
 
 const usePostQuotes = (path : string, body? : Object, execute=true) => {
-    const [quoteConfirmation, setQuoteConfirmation] = useState("Waiting");
+    const [quoteConfirmation, setQuoteConfirmation] = useState<QuoteSubmission>({submissionStatus:"Waiting"});
     useEffect( () => {
         if(execute){            
             const postQuotes = async () => {
@@ -14,11 +14,14 @@ const usePostQuotes = (path : string, body? : Object, execute=true) => {
                     headers: { "Content-Type": "application/json" }
                 });
                 const data = await response.json();
-                setQuoteConfirmation(data.submissionStatus);
+                setQuoteConfirmation({
+                    submissionStatus: data.submissionStatus,
+                    waitSeconds: data.waitSeconds
+                });
             }
             postQuotes();
         } else {
-            setQuoteConfirmation("Waiting")
+            setQuoteConfirmation({submissionStatus:"Waiting"})
         }
     }, [execute])
     return quoteConfirmation;

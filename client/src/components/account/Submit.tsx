@@ -18,10 +18,9 @@ const Submit: React.FC = () => {
         setExecuteSubmitHook(true);
     }
     useEffect(() => {
-        if(sendQuote !== "Waiting"){
-            if(sendQuote === "Success"){
+        if(sendQuote.submissionStatus !== "Waiting"){
+            if(sendQuote.submissionStatus === "Success"){
                 //reset the form
-                setExecuteSubmitHook(false);
                 setUserQuote('');      
                 
                 Swal.fire({
@@ -30,12 +29,24 @@ const Submit: React.FC = () => {
                     icon: 'success'
                 })
             } else {
+                let errorText = sendQuote.submissionStatus;
+                let errorTitle = 'Error!'
+                switch(sendQuote.submissionStatus){
+                    case "Duplicate":
+                        errorTitle = "Duplicate"
+                        errorText = "Your quote seems to have already been submitted by someone. Try writing a different quote!"
+                        break;
+                    case "Too Fast":
+                        errorTitle = "Too Fast"
+                        errorText = `Please wait for another ${sendQuote.waitSeconds} seconds before submitting another quote!`
+                }
                 Swal.fire({
-                    title: 'Quote Submission',
-                    text: 'Error!',
+                    title: errorTitle,
+                    text: errorText,
                     icon: 'error'
                 })
             }
+            setExecuteSubmitHook(false);
         }
     }, [sendQuote]);
 

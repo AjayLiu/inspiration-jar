@@ -55,7 +55,7 @@ login.get(
     }
 
     if (process.env.NODE_ENV === "production") {
-      res.redirect("/account");
+      res.redirect("/account.html");
     } else {
       res.redirect("http://localhost:3000/account");
     }
@@ -64,21 +64,17 @@ login.get(
 
 login.get("/logout", async (req, res) => {
   try {
-    //delete session from table
-    const sid = req.sessionID;
-    await pool.query(
-      "DELETE FROM session WHERE sid = $1;",
-      [sid]
-    );
     req.logout();
+    res.redirect("/account");
+    // res.json("successfully logged out");
   } catch (err) {
     console.error(err);
   }
-  res.redirect('/account')
 });
 
 login.get("/", async (req, res) => {
   try {
+    // console.log(req);
     const email = req.session.passport.user;
     if (email == undefined) {
       res.status(400);

@@ -1,17 +1,13 @@
-import { useEffect } from 'react'
-import ReactGA from 'react-ga'
+import { useEffect } from "react";
+import ReactGA from "react-ga";
 
 const GoogleAnalyticsHook: React.FC = () => {
+  useEffect(() => {
+    ReactGA.initialize("UA-178410803-6");
+    ReactGA.set({ page: window.location.pathname });
+    ReactGA.pageview(window.location.pathname);
+  }, []);
 
-    useEffect(()=>{
-        ReactGA.initialize('UA-178410803-1')
-        ReactGA.set({ page: window.location.pathname })
-        ReactGA.pageview(window.location.pathname)
-    }, [])
-
-    return (
-        <>        
-        </>
-    )
-}
+  return <></>;
+};
 export default GoogleAnalyticsHook;

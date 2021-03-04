@@ -8,6 +8,30 @@
   margin: 20px auto;
 
   display: flex;
-  justify-content: center;
+  /* justify-content: space-between; */
   align-items: center;
+  flex-direction: column;
+}
+
+.quoteText {
+  height: 50%;
+  width: 70%;
+  /* border: 1px solid red; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.voteButton {
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  border: none;
+  background-color: transparent;
+  /* border: 1px solid red; */
+}
+
+.voteButton > img {
+  width: 100%;
 }

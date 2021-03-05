@@ -28,7 +28,7 @@ const Submit: React.FC = () => {
           icon: "success",
         });
       } else {
-        let errorText = sendQuote.submissionStatus;
+        let errorText: string = sendQuote.submissionStatus;
         let errorTitle = "Error!";
         switch (sendQuote.submissionStatus) {
           case "Duplicate":

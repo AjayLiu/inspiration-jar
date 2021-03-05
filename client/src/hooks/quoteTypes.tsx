@@ -1,8 +1,13 @@
 export interface Quote {
-    quoteContent: string;
+  quoteID: number;
+  quoteContent?: string;
 }
 
-export interface QuoteSubmission{
-    submissionStatus: string;
-    waitSeconds?: number;
+export interface Vote {
+  quoteID: number;
+}
+
+export interface Status {
+  submissionStatus: "Waiting" | "Success" | "Duplicate" | "Too Fast";
+  waitSeconds?: number;
 }

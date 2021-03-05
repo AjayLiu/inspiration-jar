@@ -7,7 +7,7 @@
     "heroku-postbuild": "yarn build",
     "build": "cd client && yarn build && yarn export",
     "start": "cd server && yarn start",
-    "dev": "concurrently --kill-others \"cd client && yarn dev\" \"cd server && yarn dev\""
+    "dev": "npx kill-port 3000 && npx kill-port 5000 && concurrently --kill-others \"cd client && yarn dev\" \"cd server && yarn dev\""
   },
   "main": "server/server.ts",
   "author": "ajayliu",

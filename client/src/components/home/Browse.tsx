@@ -1,6 +1,5 @@
 import QuoteCard from "@components/QuoteCard";
 import { Quote, Vote } from "@hooks/quoteTypes";
-import { useEffect, useState } from "react";
 
 interface Props {
   quotesList: Array<Quote>;
@@ -21,7 +20,14 @@ const Browse: React.FC<Props> = (props) => {
             return;
           }
         });
-        return <QuoteCard quote={item} key={idx} voted={voted} />;
+        return (
+          <QuoteCard
+            quote={item}
+            key={idx}
+            voted={voted}
+            showVoteButton={true}
+          />
+        );
       })}
     </div>
   );

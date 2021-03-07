@@ -1,6 +1,7 @@
 export interface Quote {
   quoteID: number;
   quoteContent?: string;
+  approved?: boolean;
 }
 
 export interface Vote {

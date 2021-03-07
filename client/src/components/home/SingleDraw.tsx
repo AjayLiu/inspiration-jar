@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import { Quote, Vote } from "@hooks/quoteTypes";
 import QuoteCard from "@components/QuoteCard";
-import styles from "@styles/home/SingleDraw.module.css";
+import { Quote, Vote } from "@hooks/quoteTypes";
+import { useEffect, useState } from "react";
 
 interface Props {
   quotesList: Array<Quote>;
@@ -34,6 +33,7 @@ const SingleDraw: React.FC<Props> = (props) => {
       quote={quote}
       clickHandler={() => onQuoteClick()}
       voted={voted}
+      showVoteButton={true}
     />
   );
 };

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { Quote } from "@hooks/quoteTypes";
+import { useEffect, useState } from "react";
 
 const useGetQuotes = (path: string, execute = true) => {
   const [quotesList, setQuotesList] = useState<Array<Quote>>([]);
@@ -12,6 +12,7 @@ const useGetQuotes = (path: string, execute = true) => {
           const thisQuote: Quote = {
             quoteID: obj.quote_id,
             quoteContent: obj.quote_content,
+            approved: obj.approved,
           };
           return thisQuote;
         });

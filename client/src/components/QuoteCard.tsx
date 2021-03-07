@@ -7,54 +7,64 @@ import { useEffect, useState } from "react";
 interface Props {
   quote: Quote;
   clickHandler?;
+  showVoteButton?: boolean;
   voted?: boolean;
+  showIfApproved?: boolean;
 }
 
 const QuoteCard: React.FC<Props> = (props) => {
-  const [quoteText, setQuoteText] = useState("Loading...");
-  const [quoteID, setQuoteID] = useState(0);
   const [isVoted, setIsVoted] = useState(false);
+  const [quoteState, setQuoteState] = useState<Quote>({
+    quoteID: 0,
+    quoteContent: "Loading...",
+  });
   const [voteCount, setVoteCount] = useState(0);
   useEffect(() => {
     if (props.quote) {
-      setQuoteText(props.quote.quoteContent);
-      setQuoteID(props.quote.quoteID);
+      setQuoteState({
+        quoteID: props.quote.quoteID,
+        quoteContent: props.quote.quoteContent,
+        approved: props.quote.approved,
+      });
       setIsVoted(props.voted);
     }
   }, [props.quote]);
 
   useEffect(() => {
     const fetchVoteCount = async () => {
-      console.log(quoteID);
-      const response = await fetch("/api/quotes/vote/for/" + quoteID);
+      const response = await fetch(
+        "/api/quotes/vote/for/" + quoteState.quoteID
+      );
       const data = await response.json();
-      console.log(data.count);
+      setVoteCount(data.count);
     };
-    if (quoteID != 0) {
+    if (quoteState.quoteID != 0) {
       fetchVoteCount();
     }
-  }, [quoteID]);
+  }, [quoteState.quoteID]);
 
   const [voteExecuteTrigger, setVoteExecuteTrigger] = useState(false);
   const fetchPostVote = usePostVote(
     {
-      id: quoteID,
+      id: quoteState.quoteID,
     },
     voteExecuteTrigger
   );
   const router = useRouter();
 
   useEffect(() => {
-    console.log(fetchPostVote.submissionStatus);
-    if (fetchPostVote.submissionStatus !== "Waiting") {
-      switch (fetchPostVote.submissionStatus) {
-        case "Not Logged In":
-          router.push("/login");
-          break;
-        case "Success":
-          break;
+    if (props.showVoteButton) {
+      console.log(fetchPostVote.submissionStatus);
+      if (fetchPostVote.submissionStatus !== "Waiting") {
+        switch (fetchPostVote.submissionStatus) {
+          case "Not Logged In":
+            router.push("/login");
+            break;
+          case "Success":
+            break;
+        }
+        setVoteExecuteTrigger(false);
       }
-      setVoteExecuteTrigger(false);
     }
   }, [fetchPostVote]);
 
@@ -65,21 +75,33 @@ const QuoteCard: React.FC<Props> = (props) => {
       setIsVoted(true);
     }
   };
-
   return (
     <div>
       <div className={styles.stickynoteContainer} onClick={props.clickHandler}>
-        <div className={styles.quoteText}>{quoteText}</div>
-        <div>
-          <button className={styles.voteButton} onClick={(e) => onVoteClick(e)}>
-            {isVoted ? (
-              <img src="img/smile.png" alt="pink smiling face" />
-            ) : (
-              <img src="img/smile-off.svg" alt="black and white smiling face" />
-            )}
-          </button>
-          <div>{voteCount} humans were thankful for this quote</div>
-        </div>
+        <div className={styles.quoteText}>{quoteState.quoteContent}</div>
+        {props.showVoteButton && (
+          <div>
+            <button
+              className={styles.voteButton}
+              onClick={(e) => onVoteClick(e)}
+            >
+              {isVoted ? (
+                <img src="img/smile.png" alt="pink smiling face" />
+              ) : (
+                <img
+                  src="img/smile-off.svg"
+                  alt="black and white smiling face"
+                />
+              )}
+            </button>
+          </div>
+        )}
+        {props.showIfApproved && (
+          <div>
+            This Quote has {quoteState.approved ? "been" : "not been"} approved.
+          </div>
+        )}
+        <div>{voteCount} humans were thankful for this quote</div>
       </div>
     </div>
   );

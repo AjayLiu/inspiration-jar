@@ -21,6 +21,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-size: 25px;
+  overflow-wrap: break-word;
+  overflow-y: auto;
 }
 
 .voteButton {
@@ -34,4 +37,11 @@
 
 .voteButton > img {
   width: 100%;
+}
+
+.voteCount {
+}
+
+.approval {
+  margin-bottom: 30px;
 }

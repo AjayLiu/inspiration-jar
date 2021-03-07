@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
 import usePostQuotes from "@hooks/usePostQuotes";
-import Swal from "sweetalert2";
 import styles from "@styles/Submit.module.css";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 const Submit: React.FC = () => {
   const [userQuote, setUserQuote] = useState("");
   const [executeSubmitHook, setExecuteSubmitHook] = useState(false);
@@ -39,6 +39,11 @@ const Submit: React.FC = () => {
           case "Too Fast":
             errorTitle = "Too Fast";
             errorText = `Please wait for another ${sendQuote.waitSeconds} seconds before submitting another quote!`;
+            break;
+          case "Too Long":
+            errorTitle = "Too Long";
+            errorText = "Please keep your quote under 255 characters";
+            break;
         }
         Swal.fire({
           title: errorTitle,
@@ -63,6 +68,7 @@ const Submit: React.FC = () => {
           name="quote"
           value={userQuote}
           onChange={(e) => onQuoteChange(e)}
+          maxLength={255}
         />
         <input className={styles.formSubmit} type="submit" value="Submit" />
       </form>

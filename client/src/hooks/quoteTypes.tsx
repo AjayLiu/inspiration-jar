@@ -14,6 +14,7 @@ export interface Status {
     | "Success"
     | "Duplicate"
     | "Too Fast"
+    | "Too Long"
     | "Not Logged In";
   waitSeconds?: number;
 }

@@ -28,7 +28,7 @@ const QuoteCard: React.FC<Props> = (props) => {
       });
       setIsVoted(props.voted);
     }
-  }, [props.quote]);
+  }, [props]);
 
   useEffect(() => {
     const fetchVoteCount = async () => {
@@ -54,13 +54,13 @@ const QuoteCard: React.FC<Props> = (props) => {
 
   useEffect(() => {
     if (props.showVoteButton) {
-      console.log(fetchPostVote.submissionStatus);
       if (fetchPostVote.submissionStatus !== "Waiting") {
         switch (fetchPostVote.submissionStatus) {
           case "Not Logged In":
             router.push("/login");
             break;
           case "Success":
+            setIsVoted(true);
             break;
         }
         setVoteExecuteTrigger(false);
@@ -72,13 +72,12 @@ const QuoteCard: React.FC<Props> = (props) => {
     e.stopPropagation();
     if (!isVoted) {
       setVoteExecuteTrigger(true);
-      setIsVoted(true);
     }
   };
   return (
     <div>
       <div className={styles.stickynoteContainer} onClick={props.clickHandler}>
-        <div className={styles.quoteText}>{quoteState.quoteContent}</div>
+        <div className={styles.quoteText}>"{quoteState.quoteContent}"</div>
         {props.showVoteButton && (
           <div>
             <button
@@ -97,11 +96,18 @@ const QuoteCard: React.FC<Props> = (props) => {
           </div>
         )}
         {props.showIfApproved && (
-          <div>
-            This Quote has {quoteState.approved ? "been" : "not been"} approved.
+          <div className={styles.approval}>
+            This quote
+            {quoteState.approved
+              ? " has been approved by admin"
+              : " is pending approval from admin"}
+            .
           </div>
         )}
-        <div>{voteCount} humans were thankful for this quote</div>
+        <div className={styles.voteCount}>
+          {voteCount} {voteCount == 1 ? " human was " : " humans were "}thankful
+          for this quote
+        </div>
       </div>
     </div>
   );

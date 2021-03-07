@@ -47,6 +47,11 @@ quotes.post("/", loggedIn, async (req, res) => {
       }
     }
 
+    //check if the quote is too long
+    if (quote.length > 255) {
+      res.json({ submissionStatus: "Too Long" });
+      return;
+    }
     const newQuote = await pool.query(
       "INSERT INTO quotes (quote_content, author, time) VALUES ($1, $2, NOW());",
       [quote, author]

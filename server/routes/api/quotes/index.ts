@@ -86,9 +86,28 @@ quotes.get("/from", loggedIn, async (req, res) => {
   }
 });
 
-quotes.get("/vote", loggedIn, async (req, res) => {
+//count how many votes for specific quote id
+quotes.get("/vote/for/:id", async (req, res) => {
   try {
-    const email = req.session.passport.user;
+    const { id } = req.params;
+    const count = await pool.query(
+      "SELECT COUNT(1) FROM votes WHERE quote_id = $1;",
+      [id]
+    );
+    res.json(count.rows[0]);
+  } catch (err) {
+    console.error(err);
+  }
+});
+quotes.get("/vote", async (req, res) => {
+  try {
+    let email;
+    try {
+      email = req.session.passport.user;
+    } catch (error) {
+      res.status(401);
+      return;
+    }
     const votes = await pool.query(
       "SELECT * FROM votes WHERE vote_email = $1;",
       [email]
@@ -99,9 +118,15 @@ quotes.get("/vote", loggedIn, async (req, res) => {
   }
 });
 
-quotes.post("/vote", loggedIn, async (req, res) => {
+quotes.post("/vote", async (req, res) => {
   try {
-    const email = req.session.passport.user;
+    let email;
+    try {
+      email = req.session.passport.user;
+    } catch (error) {
+      res.json({ submissionStatus: "Not Logged In" });
+      return;
+    }
     const { id } = req.body;
 
     //check if already voted

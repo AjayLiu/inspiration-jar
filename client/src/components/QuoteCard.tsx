@@ -1,6 +1,7 @@
 import { Quote } from "@hooks/quoteTypes";
 import usePostVote from "@hooks/usePostVotes";
 import styles from "@styles/QuoteCard.module.css";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -13,6 +14,7 @@ const QuoteCard: React.FC<Props> = (props) => {
   const [quoteText, setQuoteText] = useState("Loading...");
   const [quoteID, setQuoteID] = useState(0);
   const [isVoted, setIsVoted] = useState(false);
+  const [voteCount, setVoteCount] = useState(0);
   useEffect(() => {
     if (props.quote) {
       setQuoteText(props.quote.quoteContent);
@@ -21,27 +23,47 @@ const QuoteCard: React.FC<Props> = (props) => {
     }
   }, [props.quote]);
 
+  useEffect(() => {
+    const fetchVoteCount = async () => {
+      console.log(quoteID);
+      const response = await fetch("/api/quotes/vote/for/" + quoteID);
+      const data = await response.json();
+      console.log(data.count);
+    };
+    if (quoteID != 0) {
+      fetchVoteCount();
+    }
+  }, [quoteID]);
+
   const [voteExecuteTrigger, setVoteExecuteTrigger] = useState(false);
-  const sendVote = usePostVote(
+  const fetchPostVote = usePostVote(
     {
       id: quoteID,
     },
     voteExecuteTrigger
   );
+  const router = useRouter();
 
   useEffect(() => {
-    if (sendVote.submissionStatus !== "Waiting") {
-      if (sendVote.submissionStatus === "Success") {
-      } else {
+    console.log(fetchPostVote.submissionStatus);
+    if (fetchPostVote.submissionStatus !== "Waiting") {
+      switch (fetchPostVote.submissionStatus) {
+        case "Not Logged In":
+          router.push("/login");
+          break;
+        case "Success":
+          break;
       }
       setVoteExecuteTrigger(false);
     }
-  }, [sendVote]);
+  }, [fetchPostVote]);
 
   const onVoteClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    setVoteExecuteTrigger(true);
-    setIsVoted(true);
+    if (!isVoted) {
+      setVoteExecuteTrigger(true);
+      setIsVoted(true);
+    }
   };
 
   return (
@@ -56,7 +78,7 @@ const QuoteCard: React.FC<Props> = (props) => {
               <img src="img/smile-off.svg" alt="black and white smiling face" />
             )}
           </button>
-          <div>3 humans were thankful for this quote</div>
+          <div>{voteCount} humans were thankful for this quote</div>
         </div>
       </div>
     </div>

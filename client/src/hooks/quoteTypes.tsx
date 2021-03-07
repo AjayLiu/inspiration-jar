@@ -8,6 +8,11 @@ export interface Vote {
 }
 
 export interface Status {
-  submissionStatus: "Waiting" | "Success" | "Duplicate" | "Too Fast";
+  submissionStatus:
+    | "Waiting"
+    | "Success"
+    | "Duplicate"
+    | "Too Fast"
+    | "Not Logged In";
   waitSeconds?: number;
 }

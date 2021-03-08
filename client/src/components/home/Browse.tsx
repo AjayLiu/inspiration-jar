@@ -22,7 +22,7 @@ const Browse: React.FC<Props> = (props) => {
     threshold: 0.2,
   };
 
-  const fuse = new Fuse(quotesList, options);
+  const fuse = new Fuse(props.quotesList, options);
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchVal = e.target.value;
     setSearchText(searchVal);
@@ -32,7 +32,6 @@ const Browse: React.FC<Props> = (props) => {
       const newList = filterResult.map((obj) => {
         return obj.item;
       });
-      console.log(newList);
       setQuotesList(newList);
     } else {
       setQuotesList(props.quotesList);

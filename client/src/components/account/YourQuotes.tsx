@@ -1,4 +1,4 @@
-import QuoteCard from "@components/QuoteCard";
+import Browse from "@components/home/Browse";
 import { Quote } from "@hooks/quoteTypes";
 import useGetQuotes from "@hooks/useGetQuotes";
 import { useEffect, useState } from "react";
@@ -20,10 +20,12 @@ const YourQuotes: React.FC<Props> = (props) => {
   return (
     <div>
       <h2>Your Quotes: {gotQuotes ? quotesList.length : 0}</h2>
-      {gotQuotes &&
-        quotesList.map((q, idx) => {
-          return <QuoteCard quote={q} key={idx} showIfApproved={true} />;
-        })}
+      {
+        gotQuotes && <Browse quotesList={quotesList} showIfApproved={true} />
+        // quotesList.map((q, idx) => {
+        //   return <QuoteCard quote={q} key={idx} showIfApproved={true} />;
+        // })
+      }
     </div>
   );
 };

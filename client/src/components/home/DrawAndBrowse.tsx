@@ -9,7 +9,7 @@ const DrawAndBrowse: React.FC = () => {
   return (
     <div>
       <SingleDraw quotesList={allQuotes} votesList={allVotes} />
-      <Browse quotesList={allQuotes} votesList={allVotes} />
+      <Browse quotesList={allQuotes} votesList={allVotes} voteButton={true} />
     </div>
   );
 };

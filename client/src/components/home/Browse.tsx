@@ -6,7 +6,9 @@ import React, { useEffect, useState } from "react";
 
 interface Props {
   quotesList: Array<Quote>;
-  votesList: Array<Vote>;
+  votesList?: Array<Vote>;
+  voteButton?: boolean;
+  showIfApproved?: boolean;
 }
 
 const Browse: React.FC<Props> = (props) => {
@@ -91,18 +93,21 @@ const Browse: React.FC<Props> = (props) => {
 
       {quotesList.map((item, idx) => {
         let voted = false;
-        props.votesList.forEach((obj) => {
-          if (obj.quoteID == item.quoteID) {
-            voted = true;
-            return;
-          }
-        });
+        if (props.voteButton) {
+          props.votesList.forEach((obj) => {
+            if (obj.quoteID == item.quoteID) {
+              voted = true;
+              return;
+            }
+          });
+        }
         return (
           <QuoteCard
             quote={item}
             key={idx}
             voted={voted}
-            showVoteButton={true}
+            showVoteButton={props.voteButton}
+            showIfApproved={props.showIfApproved}
           />
         );
       })}

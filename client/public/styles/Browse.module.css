@@ -1,0 +1,25 @@
+.filterBar {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  max-width: 200px;
+  margin: auto;
+}
+
+.sortLabel {
+  margin-right: 5px;
+}
+.sortBar {
+  margin-bottom: 10px;
+}
+
+.searchBar {
+  margin: auto;
+  display: flex;
+  height: 20px;
+  align-items: center;
+}
+.searchImg {
+  background-color: white;
+  height: 100%;
+}

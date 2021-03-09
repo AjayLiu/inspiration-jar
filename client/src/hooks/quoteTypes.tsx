@@ -2,6 +2,7 @@ export interface Quote {
   quoteID: number;
   quoteContent?: string;
   approved?: boolean;
+  voteCount?: number;
 }
 
 export interface Vote {

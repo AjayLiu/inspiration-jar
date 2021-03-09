@@ -38,16 +38,57 @@ const Browse: React.FC<Props> = (props) => {
     }
   };
 
+  const onSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const sortOption = e.target.value;
+    const newList = [...quotesList];
+    switch (sortOption) {
+      case "liked":
+        newList.sort((a, b) => (a.voteCount > b.voteCount ? -1 : 1));
+        break;
+      case "newest":
+        newList.sort((a, b) => (a.quoteID > b.quoteID ? 1 : -1));
+        break;
+      case "oldest":
+        newList.sort((a, b) => (a.quoteID > b.quoteID ? -1 : 1));
+        break;
+    }
+
+    setQuotesList(newList);
+  };
+
   return (
     <div>
       <h2>Browse</h2>
-      <input
-        className={styles.searchBar}
-        type="text"
-        value={searchText}
-        placeholder="Search..."
-        onChange={(e) => onSearchChange(e)}
-      />
+      <div className={styles.filterBar}>
+        <div className={styles.sortBar}>
+          <label htmlFor="sort" className={styles.sortLabel}>
+            Sort By:
+          </label>
+          <select
+            name="sort"
+            className={styles.sortSelect}
+            onChange={(e) => onSortChange(e)}
+          >
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="liked">Most Liked</option>
+          </select>
+        </div>
+        <div className={styles.searchBar}>
+          <img
+            src="img/search.svg"
+            alt="search icon"
+            className={styles.searchImg}
+          />
+          <input
+            type="text"
+            value={searchText}
+            placeholder="Search..."
+            onChange={(e) => onSearchChange(e)}
+          />
+        </div>
+      </div>
+
       {quotesList.map((item, idx) => {
         let voted = false;
         props.votesList.forEach((obj) => {

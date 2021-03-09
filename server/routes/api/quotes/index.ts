@@ -78,6 +78,7 @@ quotes.post("/", loggedIn, async (req, res) => {
   }
 });
 
+//get quotes written by user
 quotes.get("/from", loggedIn, async (req, res) => {
   try {
     const email = req.session.passport.user;
@@ -104,6 +105,8 @@ quotes.get("/vote/for/:id", async (req, res) => {
     console.error(err);
   }
 });
+
+//get what this user has voted on
 quotes.get("/vote", async (req, res) => {
   try {
     let email;
@@ -154,32 +157,6 @@ quotes.post("/vote", async (req, res) => {
   }
 });
 
-// quotes.put("/:id", loggedIn, async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const { quote_content } = req.body;
-//     const updateQuote = await pool.query(
-//       "UPDATE quotes SET quote_content = $1 WHERE quote_id = $2;",
-//       [quote_content, id]
-//     );
-//     res.json(`Quote ${id} was changed to: ${quote_content}`);
-//   } catch (err) {
-//     console.error(err.message);
-//   }
-// });
-
-// quotes.delete("/:id", loggedIn, async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const deleteQuote = await pool.query(
-//       "DELETE FROM quotes WHERE quote_id = $1;",
-//       [id]
-//     );
-//     res.json("quote deleted!");
-//   } catch (err) {
-//     console.error(err.message);
-//   }
-// });
 quotes.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;

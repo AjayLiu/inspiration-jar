@@ -18,18 +18,14 @@ const QuoteCard: React.FC<Props> = (props) => {
     quoteID: 0,
     quoteContent: "Loading...",
   });
-  const [voteCount, setVoteCount] = useState(0);
   useEffect(() => {
     if (props.quote) {
-      setQuoteState({
-        quoteID: props.quote.quoteID,
-        quoteContent: props.quote.quoteContent,
-        approved: props.quote.approved,
-      });
+      setQuoteState(props.quote);
       setIsVoted(props.voted);
     }
   }, [props]);
 
+  const [voteCount, setVoteCount] = useState(0);
   useEffect(() => {
     const fetchVoteCount = async () => {
       const response = await fetch(
@@ -105,7 +101,8 @@ const QuoteCard: React.FC<Props> = (props) => {
           </div>
         )}
         <div className={styles.voteCount}>
-          {voteCount} {voteCount == 1 ? " human was " : " humans were "}thankful
+          {quoteState.voteCount}{" "}
+          {quoteState.voteCount == 1 ? " human was " : " humans were "}thankful
           for this quote
         </div>
       </div>

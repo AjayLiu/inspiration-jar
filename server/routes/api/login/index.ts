@@ -64,13 +64,30 @@ login.get(
 
 login.get("/logout", async (req, res) => {
   try {
-    req.logout();
+    await req.logout();
+    await purge();
     res.redirect("/account");
     // res.json("successfully logged out");
   } catch (err) {
     console.error(err);
   }
 });
+
+//delete logged out sessions (it's purged but it takes up space in the db)
+const purge = async () => {
+  try {
+    const allSessions = await pool.query("SELECT * FROM session;");
+    allSessions.rows.forEach(async (object) => {
+      if (object.sess.passport.user == undefined) {
+        const sidToDelete = object.sid;
+        await pool.query("DELETE FROM session WHERE sid = $1;", [sidToDelete]);
+        // console.log(sidToDelete);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 login.get("/", async (req, res) => {
   try {

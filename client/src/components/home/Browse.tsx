@@ -92,7 +92,7 @@ const Browse: React.FC<Props> = (props) => {
 
       {quotesList.map((item, idx) => {
         let voted = false;
-        if (props.voteButton) {
+        if (props.isUserQuotes) {
           props.votesList.forEach((obj) => {
             if (obj.quoteID == item.quoteID) {
               voted = true;

@@ -33,7 +33,6 @@ const SingleDraw: React.FC<Props> = (props) => {
       quote={quote}
       clickHandler={() => onQuoteClick()}
       voted={voted}
-      showVoteButton={true}
     />
   );
 };

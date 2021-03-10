@@ -1,15 +1,15 @@
 import { Quote } from "@hooks/quoteTypes";
+import usePostQuotes from "@hooks/usePostQuotes";
 import usePostVote from "@hooks/usePostVotes";
 import styles from "@styles/QuoteCard.module.css";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 interface Props {
   quote: Quote;
   clickHandler?;
-  showVoteButton?: boolean;
   voted?: boolean;
-  showIfApproved?: boolean;
+  isUserQuotes?: boolean;
 }
 
 const QuoteCard: React.FC<Props> = (props) => {
@@ -49,7 +49,7 @@ const QuoteCard: React.FC<Props> = (props) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (props.showVoteButton) {
+    if (!props.isUserQuotes) {
       if (fetchPostVote.submissionStatus !== "Waiting") {
         switch (fetchPostVote.submissionStatus) {
           case "Not Logged In":
@@ -70,11 +70,45 @@ const QuoteCard: React.FC<Props> = (props) => {
       setVoteExecuteTrigger(true);
     }
   };
+
+  const [deleteQuoteTrigger, setDeleteVoteTrigger] = useState(false);
+  const fetchDeleteQuote = usePostQuotes(
+    props.quote == undefined ? "" : "/" + props.quote.quoteID,
+    "DELETE",
+    {},
+    deleteQuoteTrigger
+  );
+
+  const onDeleteClick = (e: React.MouseEvent<HTMLElement>) => {
+    setDeleteVoteTrigger(true);
+  };
+  useEffect(() => {
+    console.log(fetchDeleteQuote.submissionStatus);
+    if (fetchDeleteQuote.submissionStatus != "Waiting") {
+      switch (fetchDeleteQuote.submissionStatus) {
+        case "Success":
+          Swal.fire({
+            title: "Success",
+            text: "Quote successfully deleted",
+            icon: "success",
+          });
+          break;
+        case "Failed":
+          Swal.fire({
+            title: "Error",
+            text: "An error occurred trying to delete this quote",
+            icon: "error",
+          });
+          break;
+      }
+    }
+  }, [fetchDeleteQuote]);
+
   return (
     <div>
       <div className={styles.stickynoteContainer} onClick={props.clickHandler}>
         <div className={styles.quoteText}>"{quoteState.quoteContent}"</div>
-        {props.showVoteButton && (
+        {!props.isUserQuotes && (
           <div>
             <button
               className={styles.voteButton}
@@ -91,7 +125,7 @@ const QuoteCard: React.FC<Props> = (props) => {
             </button>
           </div>
         )}
-        {props.showIfApproved && (
+        {props.isUserQuotes && (
           <div className={styles.approval}>
             This quote
             {quoteState.approved
@@ -101,10 +135,15 @@ const QuoteCard: React.FC<Props> = (props) => {
           </div>
         )}
         <div className={styles.voteCount}>
-          {quoteState.voteCount}{" "}
+          {quoteState.voteCount}
           {quoteState.voteCount == 1 ? " human was " : " humans were "}thankful
           for this quote
         </div>
+        {props.isUserQuotes && (
+          <div>
+            <button onClick={(e) => onDeleteClick(e)}>Delete</button>
+          </div>
+        )}
       </div>
     </div>
   );

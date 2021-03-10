@@ -21,7 +21,7 @@ const YourQuotes: React.FC<Props> = (props) => {
     <div>
       <h2>Your Quotes: {gotQuotes ? quotesList.length : 0}</h2>
       {
-        gotQuotes && <Browse quotesList={quotesList} showIfApproved={true} />
+        gotQuotes && <Browse quotesList={quotesList} isUserQuotes={true} />
         // quotesList.map((q, idx) => {
         //   return <QuoteCard quote={q} key={idx} showIfApproved={true} />;
         // })

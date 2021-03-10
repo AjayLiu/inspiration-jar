@@ -6,7 +6,12 @@ const Submit: React.FC = () => {
   const [userQuote, setUserQuote] = useState("");
   const [executeSubmitHook, setExecuteSubmitHook] = useState(false);
 
-  const sendQuote = usePostQuotes("", { quote: userQuote }, executeSubmitHook); //only posts after executeSubmitHook turns to true
+  const sendQuote = usePostQuotes(
+    "",
+    "POST",
+    { quote: userQuote },
+    executeSubmitHook
+  ); //only posts after executeSubmitHook turns to true
 
   const onQuoteChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserQuote(event.target.value);

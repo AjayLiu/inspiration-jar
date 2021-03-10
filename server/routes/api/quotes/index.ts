@@ -73,6 +73,8 @@ quotes.post("/", loggedIn, async (req, res) => {
     // duplicate quote
     if (err.code === "23505") {
       res.json({ submissionStatus: "Duplicate" });
+    } else {
+      res.json({ submissionStatus: "Failed" });
     }
     console.error(err);
   }
@@ -126,7 +128,7 @@ quotes.get("/vote", async (req, res) => {
   }
 });
 
-quotes.post("/vote", async (req, res) => {
+quotes.post("/vote", loggedIn, async (req, res) => {
   try {
     let email;
     try {
@@ -154,6 +156,7 @@ quotes.post("/vote", async (req, res) => {
     res.json({ submissionStatus: "Success" });
   } catch (err) {
     console.log(err);
+    res.json({ submissionStatus: "Failed" });
   }
 });
 
@@ -177,6 +180,28 @@ quotes.get("/", async (req, res) => {
     res.json(allQuotes.rows);
   } catch (err) {
     console.error(err.message);
+  }
+});
+
+quotes.delete("/:id", loggedIn, async (req, res) => {
+  try {
+    let email;
+    try {
+      email = req.session.passport.user;
+    } catch (error) {
+      res.json({ submissionStatus: "Not Logged In" });
+      return;
+    }
+    const { id } = req.params;
+
+    const deleteQuery = await pool.query(
+      "DELETE FROM quotes WHERE quote_id = $1 AND author = $2;",
+      [id, email]
+    );
+    res.json({ submissionStatus: "Success" });
+  } catch (error) {
+    console.error(error);
+    res.json({ submissionStatus: "Failed" });
   }
 });
 

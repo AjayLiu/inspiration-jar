@@ -7,8 +7,7 @@ import React, { useEffect, useState } from "react";
 interface Props {
   quotesList: Array<Quote>;
   votesList?: Array<Vote>;
-  voteButton?: boolean;
-  showIfApproved?: boolean;
+  isUserQuotes?: boolean;
 }
 
 const Browse: React.FC<Props> = (props) => {
@@ -106,8 +105,7 @@ const Browse: React.FC<Props> = (props) => {
             quote={item}
             key={idx}
             voted={voted}
-            showVoteButton={props.voteButton}
-            showIfApproved={props.showIfApproved}
+            isUserQuotes={props.isUserQuotes}
           />
         );
       })}

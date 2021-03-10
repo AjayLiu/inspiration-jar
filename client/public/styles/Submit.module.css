@@ -2,7 +2,10 @@
   width: 80%;
   max-width: 1000px;
 }
-
+.disclaimer {
+  font-style: italic;
+  margin-bottom: 20px;
+}
 .form {
   display: flex;
   flex-direction: column;

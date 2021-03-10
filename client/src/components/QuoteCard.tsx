@@ -80,7 +80,15 @@ const QuoteCard: React.FC<Props> = (props) => {
   );
 
   const onDeleteClick = (e: React.MouseEvent<HTMLElement>) => {
-    setDeleteVoteTrigger(true);
+    Swal.fire({
+      title: "Are you sure you want to delete this quote forever?",
+      showDenyButton: true,
+      confirmButtonText: "Yes, delete this quote forever.",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setDeleteVoteTrigger(true);
+      }
+    });
   };
   useEffect(() => {
     console.log(fetchDeleteQuote.submissionStatus);
@@ -127,11 +135,15 @@ const QuoteCard: React.FC<Props> = (props) => {
         )}
         {props.isUserQuotes && (
           <div className={styles.approval}>
-            This quote
-            {quoteState.approved
-              ? " has been approved by admin"
-              : " is pending approval from admin"}
-            .
+            {quoteState.approved ? (
+              <div className={styles.isApproved}>
+                This quote has been approved by admin.
+              </div>
+            ) : (
+              <div className={styles.isNotApproved}>
+                This quote is pending approval from admin.
+              </div>
+            )}
           </div>
         )}
         <div className={styles.voteCount}>
@@ -141,7 +153,12 @@ const QuoteCard: React.FC<Props> = (props) => {
         </div>
         {props.isUserQuotes && (
           <div>
-            <button onClick={(e) => onDeleteClick(e)}>Delete</button>
+            <button
+              className={styles.deleteButton}
+              onClick={(e) => onDeleteClick(e)}
+            >
+              Delete
+            </button>
           </div>
         )}
       </div>

@@ -1,5 +1,5 @@
 .stickynoteContainer {
-  background-color: rgb(230, 230, 136);
+  background-color: rgb(223, 223, 186);
   color: black;
   width: 90%;
   max-width: 800px;
@@ -44,4 +44,20 @@
 
 .approval {
   margin-bottom: 30px;
+}
+
+.isApproved {
+  color: green;
+}
+.isNotApproved {
+  color: rgb(47, 0, 255);
+}
+
+.deleteButton {
+  margin-top: 20px;
+  background-color: rgb(228, 92, 92);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 20px;
 }

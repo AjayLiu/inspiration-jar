@@ -4,6 +4,7 @@ import { Quote, Vote } from "@hooks/quoteTypes";
 import styles from "@styles/Browse.module.css";
 import Fuse from "fuse.js";
 import React, { useEffect, useState } from "react";
+import { useBottomScrollListener } from "react-bottom-scroll-listener";
 
 interface Props {
   quotesList: Array<Quote>;
@@ -82,6 +83,41 @@ const Browse: React.FC<Props> = (props) => {
     props.refetchCallback();
   };
 
+  const [shownQuotesList, setShownQuotesList] = useState<Array<Quote>>();
+
+  //try loading 5 at once, but if there are less than 5 quotes to display then just display 1 at a time
+  const quotesPerLoad = quotesList && quotesList.length < 5 ? 1 : 5;
+  const [numQuotesToShow, setNumQuotesToShow] = useState(quotesPerLoad);
+  const [allowLoadMore, setAllowLoadMore] = useState(true);
+  useEffect(() => {
+    if (quotesList.length > 0) {
+      //last quote
+      if (numQuotesToShow > quotesList.length) {
+        if (props.showFinalQuoteCard) {
+          setShowFinalQuoteCard(true);
+        }
+      } else {
+        const newListToShow = quotesList.slice(0, numQuotesToShow);
+        setShownQuotesList(newListToShow);
+        setAllowLoadMore(true);
+      }
+    }
+  }, [numQuotesToShow, quotesList]);
+
+  const loadMoreQuotes = () => {
+    setNumQuotesToShow(numQuotesToShow + quotesPerLoad);
+  };
+
+  const onHitBottomScreen = () => {
+    if (allowLoadMore) {
+      loadMoreQuotes();
+    }
+    setAllowLoadMore(false);
+  };
+
+  useBottomScrollListener(onHitBottomScreen, {});
+  const [showFinalQuoteCard, setShowFinalQuoteCard] = useState(false);
+
   return (
     <div>
       <h2>Browse</h2>
@@ -116,27 +152,28 @@ const Browse: React.FC<Props> = (props) => {
         </div>
       </div>
 
-      {quotesList.map((item, idx) => {
-        let voted = false;
-        if (!props.isUserQuotes) {
-          props.votesList.forEach((obj) => {
-            if (obj.quoteID == item.quoteID) {
-              voted = true;
-              return;
-            }
-          });
-        }
-        return (
-          <QuoteCard
-            quote={item}
-            key={idx}
-            voted={voted}
-            isUserQuotes={props.isUserQuotes}
-            refetchCallback={refetchData}
-          />
-        );
-      })}
-      {props.showFinalQuoteCard && <FinalQuoteCard />}
+      {shownQuotesList &&
+        shownQuotesList.map((item, idx) => {
+          let voted = false;
+          if (!props.isUserQuotes) {
+            props.votesList.forEach((obj) => {
+              if (obj.quoteID == item.quoteID) {
+                voted = true;
+                return;
+              }
+            });
+          }
+          return (
+            <QuoteCard
+              quote={item}
+              key={idx}
+              voted={voted}
+              isUserQuotes={props.isUserQuotes}
+              refetchCallback={refetchData}
+            />
+          );
+        })}
+      {showFinalQuoteCard && <FinalQuoteCard />}
     </div>
   );
 };

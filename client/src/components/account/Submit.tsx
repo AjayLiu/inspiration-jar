@@ -2,7 +2,12 @@ import usePostQuotes from "@hooks/usePostQuotes";
 import styles from "@styles/Submit.module.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-const Submit: React.FC = () => {
+
+interface Props {
+  refetchCallback?;
+}
+
+const Submit: React.FC<Props> = (props) => {
   const [userQuote, setUserQuote] = useState("");
   const [executeSubmitHook, setExecuteSubmitHook] = useState(false);
 
@@ -56,6 +61,7 @@ const Submit: React.FC = () => {
           icon: "error",
         });
       }
+      props.refetchCallback();
       setExecuteSubmitHook(false);
     }
   }, [sendQuote]);

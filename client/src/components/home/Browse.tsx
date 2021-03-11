@@ -1,3 +1,4 @@
+import FinalQuoteCard from "@components/FinalQuoteCard";
 import QuoteCard from "@components/QuoteCard";
 import { Quote, Vote } from "@hooks/quoteTypes";
 import styles from "@styles/Browse.module.css";
@@ -8,15 +9,26 @@ interface Props {
   quotesList: Array<Quote>;
   votesList?: Array<Vote>;
   isUserQuotes?: boolean;
+  showFinalQuoteCard?: boolean;
+  refetchCallback?;
 }
 
 const Browse: React.FC<Props> = (props) => {
   const [quotesList, setQuotesList] = useState(props.quotesList);
   const [searchText, setSearchText] = useState("");
+  const [initFinished, setInitFinished] = useState(false);
 
   useEffect(() => {
     setQuotesList(props.quotesList);
   }, [props.quotesList]);
+
+  // only runs once quotes are finished fetching
+  useEffect(() => {
+    if (quotesList.length > 0 && !initFinished) {
+      sortList(sortOption);
+      setInitFinished(true);
+    }
+  }, [quotesList]);
 
   let options = {
     keys: ["quoteContent"],
@@ -39,22 +51,35 @@ const Browse: React.FC<Props> = (props) => {
     }
   };
 
-  const onSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const sortOption = e.target.value;
+  const sortList = (sortCode) => {
     const newList = [...quotesList];
-    switch (sortOption) {
+    switch (sortCode) {
       case "liked":
         newList.sort((a, b) => (a.voteCount > b.voteCount ? -1 : 1));
         break;
       case "newest":
-        newList.sort((a, b) => (a.quoteID > b.quoteID ? 1 : -1));
+        newList.sort((a, b) => (a.quoteID > b.quoteID ? -1 : 1));
         break;
       case "oldest":
-        newList.sort((a, b) => (a.quoteID > b.quoteID ? -1 : 1));
+        newList.sort((a, b) => (a.quoteID > b.quoteID ? 1 : -1));
         break;
     }
 
     setQuotesList(newList);
+  };
+
+  const [sortOption, setSortOption] = useState("newest");
+
+  const onSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortOption(e.target.value);
+  };
+
+  useEffect(() => {
+    sortList(sortOption);
+  }, [sortOption]);
+
+  const refetchData = () => {
+    props.refetchCallback();
   };
 
   return (
@@ -69,6 +94,7 @@ const Browse: React.FC<Props> = (props) => {
             name="sort"
             className={styles.sortSelect}
             onChange={(e) => onSortChange(e)}
+            value={sortOption}
           >
             <option value="newest">Newest</option>
             <option value="oldest">Oldest</option>
@@ -106,9 +132,11 @@ const Browse: React.FC<Props> = (props) => {
             key={idx}
             voted={voted}
             isUserQuotes={props.isUserQuotes}
+            refetchCallback={refetchData}
           />
         );
       })}
+      {props.showFinalQuoteCard && <FinalQuoteCard />}
     </div>
   );
 };

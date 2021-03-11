@@ -9,19 +9,32 @@ interface Props {
 
 const YourQuotes: React.FC<Props> = (props) => {
   const [gotQuotes, setGotQuotes] = useState(false);
-  const userQuotes = useGetQuotes("/from");
+  const [executeGetQuotes, setExecuteGetQuotes] = useState(true);
+  const userQuotes = useGetQuotes("/from", executeGetQuotes);
   const [quotesList, setQuotesList] = useState<Array<Quote>>();
   useEffect(() => {
     if (userQuotes) {
       setQuotesList(userQuotes);
       setGotQuotes(true);
+      setExecuteGetQuotes(false);
     }
   }, [userQuotes]);
+
+  const refetchQuotes = () => {
+    setExecuteGetQuotes(true);
+  };
+
   return (
     <div>
       <h2>Your Quotes: {gotQuotes ? quotesList.length : 0}</h2>
       {
-        gotQuotes && <Browse quotesList={quotesList} isUserQuotes={true} />
+        gotQuotes && quotesList.length > 0 && (
+          <Browse
+            quotesList={quotesList}
+            isUserQuotes={true}
+            refetchCallback={refetchQuotes}
+          />
+        )
         // quotesList.map((q, idx) => {
         //   return <QuoteCard quote={q} key={idx} showIfApproved={true} />;
         // })

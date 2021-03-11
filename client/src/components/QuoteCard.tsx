@@ -10,6 +10,7 @@ interface Props {
   clickHandler?;
   voted?: boolean;
   isUserQuotes?: boolean;
+  refetchCallback?;
 }
 
 const QuoteCard: React.FC<Props> = (props) => {
@@ -91,7 +92,6 @@ const QuoteCard: React.FC<Props> = (props) => {
     });
   };
   useEffect(() => {
-    console.log(fetchDeleteQuote.submissionStatus);
     if (fetchDeleteQuote.submissionStatus != "Waiting") {
       switch (fetchDeleteQuote.submissionStatus) {
         case "Success":
@@ -109,6 +109,7 @@ const QuoteCard: React.FC<Props> = (props) => {
           });
           break;
       }
+      props.refetchCallback();
     }
   }, [fetchDeleteQuote]);
 

@@ -65,7 +65,6 @@ const Browse: React.FC<Props> = (props) => {
         newList.sort((a, b) => (a.quoteID > b.quoteID ? 1 : -1));
         break;
     }
-
     setQuotesList(newList);
   };
 
@@ -94,6 +93,7 @@ const Browse: React.FC<Props> = (props) => {
       //last quote
       if (numQuotesToShow > quotesList.length) {
         if (props.showFinalQuoteCard) {
+          setShownQuotesList(quotesList);
           setShowFinalQuoteCard(true);
         }
       } else {
@@ -115,7 +115,16 @@ const Browse: React.FC<Props> = (props) => {
     setAllowLoadMore(false);
   };
 
-  useBottomScrollListener(onHitBottomScreen, { offset: 200 });
+  let screenHeight = 800;
+
+  useEffect(() => {
+    screenHeight = window.innerHeight;
+    console.log(innerHeight);
+  }, []);
+  useBottomScrollListener(onHitBottomScreen, {
+    offset: screenHeight * 0.2,
+  });
+
   const [showFinalQuoteCard, setShowFinalQuoteCard] = useState(false);
 
   return (

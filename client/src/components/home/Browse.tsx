@@ -115,7 +115,7 @@ const Browse: React.FC<Props> = (props) => {
     setAllowLoadMore(false);
   };
 
-  useBottomScrollListener(onHitBottomScreen, {});
+  useBottomScrollListener(onHitBottomScreen, { offset: 200 });
   const [showFinalQuoteCard, setShowFinalQuoteCard] = useState(false);
 
   return (

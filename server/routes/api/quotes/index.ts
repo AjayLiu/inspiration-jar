@@ -128,7 +128,7 @@ quotes.get("/vote", async (req, res) => {
   }
 });
 
-quotes.post("/vote", loggedIn, async (req, res) => {
+quotes.post("/vote", async (req, res) => {
   try {
     let email;
     try {

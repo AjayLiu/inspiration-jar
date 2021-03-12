@@ -53,6 +53,7 @@ const QuoteCard: React.FC<Props> = (props) => {
   useEffect(() => {
     if (!props.isUserQuotes) {
       if (fetchPostVote.submissionStatus !== "Waiting") {
+        console.log(fetchPostVote.submissionStatus);
         switch (fetchPostVote.submissionStatus) {
           case "Not Logged In":
             router.push("/login");

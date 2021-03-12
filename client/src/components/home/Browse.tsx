@@ -120,7 +120,6 @@ const Browse: React.FC<Props> = (props) => {
 
   useEffect(() => {
     screenHeight = window.innerHeight;
-    console.log(innerHeight);
   }, []);
   useBottomScrollListener(onHitBottomScreen, {
     offset: screenHeight * 0.2,

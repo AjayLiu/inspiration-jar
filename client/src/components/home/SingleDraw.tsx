@@ -27,6 +27,7 @@ const SingleDraw: React.FC<Props> = (props) => {
       } else {
         setQuote(quotesList[quoteIndex]);
         setIsLastQuote(false);
+        setVoted(false);
         props.votesList.forEach((obj) => {
           if (obj.quoteID == quotesList[quoteIndex].quoteID) {
             setVoted(true);

@@ -10,6 +10,7 @@ interface Props {
   clickHandler?;
   voted?: boolean;
   isUserQuotes?: boolean;
+  isAdmin?: boolean;
   refetchCallback?;
 }
 
@@ -109,9 +110,41 @@ const QuoteCard: React.FC<Props> = (props) => {
           });
           break;
       }
+      setDeleteVoteTrigger(false);
       props.refetchCallback();
     }
   }, [fetchDeleteQuote]);
+
+  const [approveID, setApproveID] = useState();
+  const [executeApprove, setExecuteApprove] = useState(false);
+  const approveHook = usePostQuotes(
+    "/admin/approve",
+    "POST",
+    { id: quoteState.quoteID },
+    executeApprove
+  );
+  const onApproveClick = (e: React.MouseEvent<HTMLElement>) => {
+    setExecuteApprove(true);
+  };
+  useEffect(() => {
+    if (approveHook.submissionStatus != "Waiting") {
+      switch (approveHook.submissionStatus) {
+        case "Success":
+          Swal.fire({
+            title: "Success",
+            icon: "success",
+          });
+          break;
+        case "Failed":
+          Swal.fire({
+            title: "Error",
+            icon: "error",
+          });
+          break;
+      }
+      setExecuteApprove(false);
+    }
+  }, [approveHook]);
 
   return (
     <div>
@@ -161,6 +194,9 @@ const QuoteCard: React.FC<Props> = (props) => {
               Delete
             </button>
           </div>
+        )}
+        {props.isAdmin && (
+          <button onClick={(e) => onApproveClick(e)}>Approve</button>
         )}
       </div>
     </div>

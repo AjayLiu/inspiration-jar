@@ -10,6 +10,7 @@ interface Props {
   quotesList: Array<Quote>;
   votesList?: Array<Vote>;
   isUserQuotes?: boolean;
+  isAdmin?: boolean;
   showFinalQuoteCard?: boolean;
   refetchCallback?;
 }
@@ -165,7 +166,7 @@ const Browse: React.FC<Props> = (props) => {
         {shownQuotesList &&
           shownQuotesList.map((item, idx) => {
             let voted = false;
-            if (!props.isUserQuotes) {
+            if (!props.isUserQuotes && !props.isAdmin) {
               props.votesList.forEach((obj) => {
                 if (obj.quoteID == item.quoteID) {
                   voted = true;
@@ -179,6 +180,7 @@ const Browse: React.FC<Props> = (props) => {
                 key={idx}
                 voted={voted}
                 isUserQuotes={props.isUserQuotes}
+                isAdmin={props.isAdmin}
                 refetchCallback={refetchData}
               />
             );

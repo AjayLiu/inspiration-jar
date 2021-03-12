@@ -160,6 +160,35 @@ quotes.post("/vote", loggedIn, async (req, res) => {
   }
 });
 
+quotes.get("/admin", loggedIn, async (req, res) => {
+  try {
+    const email = req.session.passport.user;
+    if (email == process.env.ADMIN_EMAIL) {
+      const allQuotes = await pool.query(
+        "SELECT * FROM quotes WHERE approved = FALSE;"
+      );
+      res.json(allQuotes.rows);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
+quotes.post("/admin/approve", loggedIn, async (req, res) => {
+  try {
+    const { id } = req.body;
+    const email = req.session.passport.user;
+    if (email == process.env.ADMIN_EMAIL) {
+      const postApprove = await pool.query(
+        "UPDATE quotes SET approved = TRUE WHERE quote_id = $1;",
+        [id]
+      );
+      res.json({ submissionStatus: "Success" });
+    }
+  } catch (error) {
+    res.json({ submissionStatus: "Failed" });
+  }
+});
+
 quotes.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;

@@ -23,3 +23,9 @@
   background-color: white;
   height: 100%;
 }
+
+.quoteCardList {
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+}

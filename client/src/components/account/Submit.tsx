@@ -82,6 +82,9 @@ const Submit: React.FC<Props> = (props) => {
           onChange={(e) => onQuoteChange(e)}
           maxLength={255}
         />
+        <div className={styles.charCounter}>
+          {userQuote.length + "/255 characters used"}
+        </div>
         <input className={styles.formSubmit} type="submit" value="Submit" />
       </form>
       <hr className={styles.divider} />

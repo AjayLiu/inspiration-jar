@@ -161,27 +161,29 @@ const Browse: React.FC<Props> = (props) => {
         </div>
       </div>
 
-      {shownQuotesList &&
-        shownQuotesList.map((item, idx) => {
-          let voted = false;
-          if (!props.isUserQuotes) {
-            props.votesList.forEach((obj) => {
-              if (obj.quoteID == item.quoteID) {
-                voted = true;
-                return;
-              }
-            });
-          }
-          return (
-            <QuoteCard
-              quote={item}
-              key={idx}
-              voted={voted}
-              isUserQuotes={props.isUserQuotes}
-              refetchCallback={refetchData}
-            />
-          );
-        })}
+      <div className={styles.quoteCardList}>
+        {shownQuotesList &&
+          shownQuotesList.map((item, idx) => {
+            let voted = false;
+            if (!props.isUserQuotes) {
+              props.votesList.forEach((obj) => {
+                if (obj.quoteID == item.quoteID) {
+                  voted = true;
+                  return;
+                }
+              });
+            }
+            return (
+              <QuoteCard
+                quote={item}
+                key={idx}
+                voted={voted}
+                isUserQuotes={props.isUserQuotes}
+                refetchCallback={refetchData}
+              />
+            );
+          })}
+      </div>
       {showFinalQuoteCard && <FinalQuoteCard />}
     </div>
   );

@@ -138,11 +138,11 @@ const QuoteCard: React.FC<Props> = (props) => {
           <div className={styles.approval}>
             {quoteState.approved ? (
               <div className={styles.isApproved}>
-                This quote has been approved by admin.
+                *This quote has been approved by admin.
               </div>
             ) : (
               <div className={styles.isNotApproved}>
-                This quote is pending approval from admin.
+                *This quote is pending approval from admin.
               </div>
             )}
           </div>

@@ -4,7 +4,6 @@ import usePostVote from "@hooks/usePostVotes";
 import styles from "@styles/QuoteCard.module.css";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { ReactFitty } from "react-fitty";
 import Swal from "sweetalert2";
 interface Props {
   quote: Quote;
@@ -151,27 +150,7 @@ const QuoteCard: React.FC<Props> = (props) => {
     <div>
       <div className={styles.stickynoteContainer} onClick={props.clickHandler}>
         <div className={styles.quoteTextContainer}>
-          {quoteState.quoteContent.length > 150 ? (
-            <ReactFitty
-              className={styles.quoteText}
-              wrapText={true}
-              minSize={12}
-              maxSize={25}
-            >
-              "{quoteState.quoteContent}"
-            </ReactFitty>
-          ) : (
-            <div>
-              <ReactFitty
-                className={styles.quoteText}
-                wrapText={true}
-                minSize={20}
-                maxSize={25}
-              >
-                "{quoteState.quoteContent}"
-              </ReactFitty>
-            </div>
-          )}
+          {<div className={styles.quoteText}>"{quoteState.quoteContent}"</div>}
         </div>
         {!props.isUserQuotes && (
           <div>

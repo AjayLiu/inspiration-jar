@@ -21,6 +21,8 @@
   /* border: 1px solid red; */
 }
 .quoteText {
+  font-size: 1.2rem;
+  overflow-y: auto;
 }
 
 .voteButton {

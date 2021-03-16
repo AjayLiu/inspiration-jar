@@ -13,10 +13,16 @@ const Login: React.FC = () => {
         <Navbar />
         <h1>Login</h1>
         <LoginButton />
-        <em>
-          By signing in with Google, I won't have to encrypt and store your
-          passwords, so be rest assured that your accounts are secure.
-        </em>
+        <div style={{ width: "80%", margin: "auto" }}>
+          <em>
+            By signing in with Google, I won't have to encrypt and store your
+            passwords, so be rest assured that your accounts are secure.
+          </em>
+          <p>
+            Your email address will be visible only to admin for moderation
+            purposes.
+          </p>
+        </div>
       </main>
       <Footer />
     </div>

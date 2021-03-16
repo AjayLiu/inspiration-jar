@@ -70,7 +70,13 @@ const Submit: React.FC<Props> = (props) => {
     <div>
       <hr className={styles.divider} />
       <h2>Submit a quote!</h2>
-      <div className={styles.disclaimer}>Your quote will be anonymous</div>
+      <div className={styles.disclaimer}>
+        <p>Your quote will be anonymous.</p>
+        <p>
+          Your email address will be visible only to admin for moderation
+          purposes.
+        </p>
+      </div>
       <form className={styles.form} onSubmit={(e) => onSubmit(e)}>
         <label className={styles.formLabel} htmlFor="quote">
           Your Heartwarming Message:

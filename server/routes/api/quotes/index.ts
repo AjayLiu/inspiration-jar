@@ -196,6 +196,7 @@ quotes.get("/:id", async (req, res) => {
       "SELECT * FROM quotes WHERE quote_id = $1 AND approved = TRUE;",
       [id]
     );
+    delete quote.rows[0].author;
     res.json(quote.rows[0]);
   } catch (err) {
     console.error(err.message);
@@ -206,6 +207,10 @@ quotes.get("/", async (req, res) => {
     const allQuotes = await pool.query(
       "SELECT * FROM quotes WHERE approved = TRUE;"
     );
+    allQuotes.rows.forEach((row) => {
+      delete row.author;
+    });
+
     res.json(allQuotes.rows);
   } catch (err) {
     console.error(err.message);

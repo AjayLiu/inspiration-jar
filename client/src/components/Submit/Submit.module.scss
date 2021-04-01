@@ -13,26 +13,24 @@
   margin: auto;
   align-items: center;
   margin-bottom: 40px;
-}
+  .formLabel {
+    margin-bottom: 10px;
+  }
+  .formText {
+    width: 80%;
+    max-width: 600px;
+    height: 200px;
+    font-size: larger;
+    padding: 10px;
+    vertical-align: top;
+    line-height: 25px;
+    margin-bottom: 5px;
+  }
+  .charCounter {
+    margin-bottom: 20px;
+  }
 
-.formLabel {
-  margin-bottom: 10px;
-}
-.formText {
-  width: 80%;
-  max-width: 600px;
-  height: 200px;
-  font-size: larger;
-  padding: 10px;
-  vertical-align: top;
-  line-height: 25px;
-  margin-bottom: 5px;
-}
-
-.charCounter {
-  margin-bottom: 20px;
-}
-
-.formSubmit {
-  width: 100px;
+  .formSubmit {
+    width: 100px;
+  }
 }

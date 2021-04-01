@@ -11,12 +11,11 @@
   justify-content: center;
   align-items: center;
   display: flex;
-}
-
-.mid {
-  width: 90%;
-  max-width: 780px;
-  margin: 0px 15px;
+  .mid {
+    width: 90%;
+    max-width: 780px;
+    margin: 0px 15px;
+  }
 }
 
 .buttonRow {
@@ -27,24 +26,22 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-}
-
-.button {
-  width: 50px;
-  height: 50px;
-}
-.button > button {
-  width: 100%;
-  height: 100%;
-  background: none;
-  border: 1px solid black;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.button > button > img {
-  margin: auto;
-  width: 75%;
-  /* border: 1px solid red; */
+  .button {
+    width: 50px;
+    height: 50px;
+    button {
+      width: 100%;
+      height: 100%;
+      background: none;
+      border: 1px solid black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        margin: auto;
+        width: 75%;
+      }
+    }
+  }
 }

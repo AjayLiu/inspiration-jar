@@ -1,8 +1,8 @@
-import Submit from "@components/account/Submit";
-import YourQuotes from "@components/account/YourQuotes";
-import Footer from "@components/Footer";
-import Navbar from "@components/Navbar";
-import styles from "@styles/Account.module.css";
+import Footer from "@components/Footer/Footer";
+import Navbar from "@components/Navbar/Navbar";
+import Submit from "@components/Submit/Submit";
+import YourQuotes from "@components/YourQuotes/YourQuotes";
+import styles from "@styles/Account.module.scss";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 

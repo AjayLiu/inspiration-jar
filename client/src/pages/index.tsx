@@ -1,8 +1,8 @@
-import Footer from "@components/Footer";
+import DrawAndBrowse from "@components/DrawAndBrowse/DrawAndBrowse";
+import Footer from "@components/Footer/Footer";
 import GoogleAnalyticsHook from "@components/GoogleAnalyticsHook";
-import DrawAndBrowse from "@components/home/DrawAndBrowse";
-import LandingPage from "@components/home/LandingPage";
-import Navbar from "@components/Navbar";
+import LandingPage from "@components/LandingPage/LandingPage";
+import Navbar from "@components/Navbar/Navbar";
 import Head from "next/head";
 
 const Home: React.FC = () => {

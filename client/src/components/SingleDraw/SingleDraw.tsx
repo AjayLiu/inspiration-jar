@@ -1,8 +1,8 @@
-import FinalQuoteCard from "@components/FinalQuoteCard";
-import QuoteCard from "@components/QuoteCard";
+import FinalQuoteCard from "@components/FinalQuoteCard/FinalQuoteCard";
+import QuoteCard from "@components/QuoteCard/QuoteCard";
 import { Quote, Vote } from "@hooks/quoteTypes";
-import styles from "@styles/SingleDraw.module.css";
 import { useEffect, useState } from "react";
+import styles from "./SingleDraw.module.scss";
 interface Props {
   quotesList: Array<Quote>;
   votesList: Array<Vote>;

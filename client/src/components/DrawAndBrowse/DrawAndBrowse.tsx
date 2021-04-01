@@ -1,5 +1,5 @@
-import Browse from "@components/home/Browse";
-import SingleDraw from "@components/home/SingleDraw";
+import Browse from "@components/Browse/Browse";
+import SingleDraw from "@components/SingleDraw/SingleDraw";
 import useGetQuotes from "@hooks/useGetQuotes";
 import useGetVotes from "@hooks/useGetVotes";
 

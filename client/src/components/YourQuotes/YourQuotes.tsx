@@ -1,4 +1,4 @@
-import Browse from "@components/home/Browse";
+import Browse from "@components/Browse/Browse";
 import { Quote } from "@hooks/quoteTypes";
 import useGetQuotes from "@hooks/useGetQuotes";
 import { useEffect, useState } from "react";

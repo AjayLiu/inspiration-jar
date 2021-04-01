@@ -1,10 +1,10 @@
-import FinalQuoteCard from "@components/FinalQuoteCard";
-import QuoteCard from "@components/QuoteCard";
+import FinalQuoteCard from "@components/FinalQuoteCard/FinalQuoteCard";
+import QuoteCard from "@components/QuoteCard/QuoteCard";
 import { Quote, Vote } from "@hooks/quoteTypes";
-import styles from "@styles/Browse.module.css";
 import Fuse from "fuse.js";
 import React, { useEffect, useState } from "react";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
+import styles from "./Browse.module.scss";
 
 interface Props {
   quotesList: Array<Quote>;

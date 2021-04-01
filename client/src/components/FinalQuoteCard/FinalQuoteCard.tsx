@@ -1,4 +1,4 @@
-import styles from "@styles/FinalQuoteCard.module.css";
+import styles from "./FinalQuoteCard.module.scss";
 interface Props {
   reshuffleCallback?;
 }

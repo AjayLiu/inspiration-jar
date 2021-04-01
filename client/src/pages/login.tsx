@@ -1,6 +1,6 @@
-import Footer from "@components/Footer";
-import LoginButton from "@components/login/LoginButton";
-import Navbar from "@components/Navbar";
+import Footer from "@components/Footer/Footer";
+import LoginButton from "@components/LoginButton/LoginButton";
+import Navbar from "@components/Navbar/Navbar";
 import Head from "next/head";
 
 const Login: React.FC = () => {

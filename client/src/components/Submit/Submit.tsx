@@ -1,7 +1,7 @@
 import usePostQuotes from "@hooks/usePostQuotes";
-import styles from "@styles/Submit.module.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import styles from "./Submit.module.scss";
 
 interface Props {
   refetchCallback?;

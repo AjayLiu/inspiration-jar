@@ -1,4 +1,4 @@
-import Browse from "@components/home/Browse";
+import Browse from "@components/Browse/Browse";
 import useGetQuotes from "@hooks/useGetQuotes";
 
 const Admin: React.FC = () => {

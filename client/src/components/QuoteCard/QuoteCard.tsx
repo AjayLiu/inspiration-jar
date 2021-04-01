@@ -1,10 +1,10 @@
 import { Quote } from "@hooks/quoteTypes";
 import usePostQuotes from "@hooks/usePostQuotes";
 import usePostVote from "@hooks/usePostVotes";
-import styles from "@styles/QuoteCard.module.css";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import styles from "./QuoteCard.module.scss";
 interface Props {
   quote: Quote;
   clickHandler?;

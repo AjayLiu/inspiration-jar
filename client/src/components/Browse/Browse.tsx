@@ -12,7 +12,6 @@ interface Props {
   isUserQuotes?: boolean;
   isAdmin?: boolean;
   showFinalQuoteCard?: boolean;
-  refetchCallback?;
 }
 
 const Browse: React.FC<Props> = (props) => {
@@ -78,10 +77,6 @@ const Browse: React.FC<Props> = (props) => {
   useEffect(() => {
     sortList(sortOption);
   }, [sortOption]);
-
-  const refetchData = () => {
-    props.refetchCallback();
-  };
 
   const [shownQuotesList, setShownQuotesList] = useState<Array<Quote>>();
 
@@ -180,7 +175,6 @@ const Browse: React.FC<Props> = (props) => {
                 voted={voted}
                 isUserQuotes={props.isUserQuotes}
                 isAdmin={props.isAdmin}
-                refetchCallback={refetchData}
               />
             );
           })}

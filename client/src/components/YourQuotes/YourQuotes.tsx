@@ -2,6 +2,7 @@ import Browse from "@components/Browse/Browse";
 import { Quote } from "@hooks/quoteTypes";
 import useGetQuotes from "@hooks/useGetQuotes";
 import { useEffect, useState } from "react";
+import { YourQuotesContext } from "./YourQuotesContext";
 
 interface Props {
   email: string;
@@ -27,13 +28,11 @@ const YourQuotes: React.FC<Props> = (props) => {
   return (
     <div>
       <h2>Your Quotes: {gotQuotes ? quotesList.length : 0}</h2>
-      {gotQuotes && quotesList.length > 0 && (
-        <Browse
-          quotesList={quotesList}
-          isUserQuotes={true}
-          refetchCallback={refetchQuotes}
-        />
-      )}
+      <YourQuotesContext.Provider value={refetchQuotes}>
+        {gotQuotes && quotesList.length > 0 && (
+          <Browse quotesList={quotesList} isUserQuotes={true} />
+        )}
+      </YourQuotesContext.Provider>
     </div>
   );
 };

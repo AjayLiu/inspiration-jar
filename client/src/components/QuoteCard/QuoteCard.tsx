@@ -1,8 +1,9 @@
+import { YourQuotesContext } from "@components/YourQuotes/YourQuotesContext";
 import { Quote } from "@hooks/quoteTypes";
 import usePostQuotes from "@hooks/usePostQuotes";
 import usePostVote from "@hooks/usePostVotes";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import styles from "./QuoteCard.module.scss";
 interface Props {
@@ -11,7 +12,6 @@ interface Props {
   voted?: boolean;
   isUserQuotes?: boolean;
   isAdmin?: boolean;
-  refetchCallback?;
 }
 
 const QuoteCard: React.FC<Props> = (props) => {
@@ -93,6 +93,8 @@ const QuoteCard: React.FC<Props> = (props) => {
       }
     });
   };
+
+  const refetchCallback = useContext(YourQuotesContext);
   useEffect(() => {
     if (fetchDeleteQuote.submissionStatus != "Waiting") {
       switch (fetchDeleteQuote.submissionStatus) {
@@ -112,7 +114,7 @@ const QuoteCard: React.FC<Props> = (props) => {
           break;
       }
       setDeleteVoteTrigger(false);
-      props.refetchCallback();
+      refetchCallback();
     }
   }, [fetchDeleteQuote]);
 

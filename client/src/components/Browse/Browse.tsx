@@ -47,9 +47,9 @@ const Browse: React.FC<Props> = (props) => {
       const newList = filterResult.map((obj) => {
         return obj.item;
       });
-      setQuotesList(newList);
+      setShownQuotesList(newList);
     } else {
-      setQuotesList(props.quotesList);
+      setShownQuotesList(props.quotesList);
     }
   };
 

@@ -27,18 +27,13 @@ const YourQuotes: React.FC<Props> = (props) => {
   return (
     <div>
       <h2>Your Quotes: {gotQuotes ? quotesList.length : 0}</h2>
-      {
-        gotQuotes && quotesList.length > 0 && (
-          <Browse
-            quotesList={quotesList}
-            isUserQuotes={true}
-            refetchCallback={refetchQuotes}
-          />
-        )
-        // quotesList.map((q, idx) => {
-        //   return <QuoteCard quote={q} key={idx} showIfApproved={true} />;
-        // })
-      }
+      {gotQuotes && quotesList.length > 0 && (
+        <Browse
+          quotesList={quotesList}
+          isUserQuotes={true}
+          refetchCallback={refetchQuotes}
+        />
+      )}
     </div>
   );
 };

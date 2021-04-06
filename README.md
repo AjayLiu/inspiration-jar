@@ -1,5 +1,7 @@
 # Inspiration Jar
 
+![Website preview screenshot](preview.png)
+
 ## About
 
 PERN Stack Project (PostgreSQL, Express, React (Next.js), Node.js)

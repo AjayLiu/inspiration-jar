@@ -25,7 +25,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
         process.env.NODE_ENV === "production"
-          ? "https://inspirationjar.herokuapp.com/api/login/google/callback"
+          ? "https://inspiration-jar.ajayliu.com/api/login/google/callback"
           : "http://localhost:5000/api/login/google/callback",
     },
     function (accessToken, refreshToken, profile, cb) {

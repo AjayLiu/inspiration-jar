@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./Navbar.module.scss";
 const Navbar: React.FC = () => {
   return (
@@ -5,10 +6,14 @@ const Navbar: React.FC = () => {
       <div className={styles.container}>
         <ul className={styles.listContainer}>
           <li className={styles.listItem}>
-            <a href="/">Home</a>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
           </li>
           <li className={styles.listItem}>
-            <a href="/account">My Account</a>
+            <Link href="/account">
+              <a>My Account</a>
+            </Link>
           </li>
         </ul>
       </div>

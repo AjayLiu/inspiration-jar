@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./FinalQuoteCard.module.scss";
 interface Props {
   reshuffleCallback?;
@@ -15,9 +16,10 @@ const FinalQuoteCard: React.FC<Props> = (props) => {
           Reshuffle quotes
         </button>
       )}
-      <a href="/account" className={styles.submitQuoteLink}>
-        Submit a quote!
-      </a>
+
+      <Link href="/account">
+        <a className={styles.submitQuoteLink}>Submit a quote!</a>
+      </Link>
     </div>
   );
 };

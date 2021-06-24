@@ -104,7 +104,8 @@ Here is a guide if you want to clone my website and modify it for yourself, all 
 
    ADMIN_EMAIL =
    ```
-4. Publish the site on Heroku using continuous git integration. :tada:
+4. Enter in these environment variables in Heroku via Heroku's CLI or through the website dashboard.
+5. Publish the site on Heroku using continuous git integration. :tada:
 
 ### Development
 

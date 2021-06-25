@@ -29,7 +29,7 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#development">Development</a></li>
-        <li><a href="#development">Publishing</a></li>
+        <li><a href="#deployment">Deployment</a></li>
       </ul>
     </li>
     <li><a href="#license">License</a></li>
@@ -115,7 +115,7 @@ To run the development server
    ```
 Then head over to localhost:3000
 
-### Publishing
+### Deployment
 
 1. Publish the site on Heroku using continuous git integration.   
 2. Enter in the environment variables (`.env`) in Heroku via [Heroku's CLI](https://devcenter.heroku.com/articles/config-vars) or through the website dashboard.

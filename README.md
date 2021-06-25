@@ -29,6 +29,7 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#development">Development</a></li>
+        <li><a href="#development">Publishing</a></li>
       </ul>
     </li>
     <li><a href="#license">License</a></li>
@@ -70,7 +71,6 @@ Here is a guide if you want to clone my website and modify it for yourself, all 
 
 * [yarn](https://yarnpkg.com/)
 * [git](https://git-scm.com/)
-* [heroku cli](https://devcenter.heroku.com/articles/heroku-cli)
 
 ### Installation
 
@@ -86,7 +86,8 @@ Here is a guide if you want to clone my website and modify it for yourself, all 
    cd ../server
    yarn
    ```
-3. Create a `.env` file in the /server folder and fill in the following info for the backend to function properly
+3. Create a PostgreSQL databse (I used Heroku)
+4. Create a `.env` file in the /server folder and fill in the following info for the backend to function properly (PG = postgres)
    ```
    PG_HOST =
    PG_DATABASE =  
@@ -104,8 +105,7 @@ Here is a guide if you want to clone my website and modify it for yourself, all 
 
    ADMIN_EMAIL =
    ```
-4. Enter in these environment variables in Heroku via Heroku's CLI or through the website dashboard.
-5. Publish the site on Heroku using continuous git integration. :tada:
+
 
 ### Development
 
@@ -114,6 +114,11 @@ To run the development server
    yarn dev
    ```
 Then head over to localhost:3000
+
+### Publishing
+
+1. Publish the site on Heroku using continuous git integration.   
+2. Enter in the environment variables (`.env`) in Heroku via [Heroku's CLI](https://devcenter.heroku.com/articles/config-vars) or through the website dashboard.
 
 <!-- LICENSE -->
 ## License
@@ -135,3 +140,5 @@ Project Link: [https://github.com/AjayLiu/inspiration-jar](https://github.com/Aj
 ## Acknowledgements
 * [Fuse.js for the search bar (fuzzy search)](https://www.vantajs.com/)
 * [Passport.js for Google OAuth Login](https://www.passportjs.org/)
+* [connect-pg-simple](https://www.npmjs.com/package/connect-pg-simple)
+* [sweetalert2](https://sweetalert.js.org/)

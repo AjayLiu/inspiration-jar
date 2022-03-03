@@ -15,6 +15,11 @@ const Navbar: React.FC = () => {
               <a>My Account</a>
             </Link>
           </li>
+          <li className={styles.listItem}>
+            <Link href="/about">
+              <a>About</a>
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

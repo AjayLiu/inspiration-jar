@@ -58,9 +58,6 @@ Backend:
 * [Node.js](https://nodejs.org/en/)
 * [PostgreSQL](https://www.postgresql.org/)
 
-Host:
-* [Heroku](https://www.heroku.com/)
-
 
 <!-- GETTING STARTED -->
 ## Getting Started

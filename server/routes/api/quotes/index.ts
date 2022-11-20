@@ -1,3 +1,4 @@
+require("dotenv").config();
 const quotes = require("express").Router();
 const pool = require("../../../db");
 

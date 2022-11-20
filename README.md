@@ -83,15 +83,16 @@ Here is a guide if you want to clone my website and modify it for yourself, all 
    cd ../server
    yarn
    ```
-3. Create a PostgreSQL databse (I used Heroku)
+3. Create a PostgreSQL databse (I used AWS)
 4. Create a `.env` file in the /server folder and fill in the following info for the backend to function properly (PG = postgres)
    ```
    PG_HOST =
    PG_DATABASE =  
    PG_USER = 
    PG_PORT = 
-   PG_PASSWORD = 
-
+   PG_PASSWORD =
+   DATABASE_URL=
+  
    GOOGLE_CLIENT_ID = 
    GOOGLE_CLIENT_SECRET = 
 
@@ -114,8 +115,13 @@ Then head over to localhost:3000
 
 ### Deployment
 
+#### Using Heroku:
 1. Publish the site on Heroku using continuous git integration.   
 2. Enter in the environment variables (`.env`) in Heroku via [Heroku's CLI](https://devcenter.heroku.com/articles/config-vars) or through the website dashboard.
+
+#### Using Render:
+1. Publish the site on Render using continuous git integration.
+2. Paste the contents of your `.env` file into Render's environment tab.
 
 <!-- LICENSE -->
 ## License

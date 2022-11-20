@@ -1,4 +1,5 @@
-require("dotenv").config();
+// require("dotenv").config();
+require("dotenv").config({ path: require("find-config")(".env") });
 const { SESS_NAME, SESS_SECRET } = process.env;
 
 const session = require("express-session");
